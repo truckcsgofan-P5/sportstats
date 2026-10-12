@@ -30,25 +30,25 @@
             <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-2 items-center justify-between">
                 <span class="text-slate-400 font-semibold text-sm">Vyberte ligu:</span>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="loadLiveMatches('English Premier League', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie</button>
-                    <button onclick="loadLiveMatches('Spanish La Liga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
-                    <button onclick="loadLiveMatches('German Bundesliga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
-                    <button onclick="loadLiveMatches('Italian Serie A', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Itálie</button>
+                    <button onclick="loadLeague('PL', 'Anglie (Premier League)', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie</button>
+                    <button onclick="loadLeague('PD', 'Španělsko (La Liga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
+                    <button onclick="loadLeague('BL1', 'Německo (Bundesliga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
+                    <button onclick="loadLeague('SA', 'Itálie (Serie A)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Itálie</button>
                 </div>
             </div>
 
-            <!-- Online výsledky a zápasy -->
+            <!-- Výsledky a zápasy -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-emerald-400" id="league-title">Online výsledky & Zápasy: English Premier League</h2>
+                    <h2 class="text-xl font-bold text-emerald-400" id="league-title">Výsledky & Zápasy: Anglie (Premier League)</h2>
                     <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live Auto-Fetch
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Stabilní režim
                     </span>
                 </div>
                 
-                <!-- Kontejner pro dynamické načítání -->
+                <!-- Kontejner pro zápasy -->
                 <div id="online-matches-container" class="space-y-3">
-                    <div class="text-slate-400 text-center py-4">Načítám aktuální data...</div>
+                    <!-- Sem se dynamicky nahrají zápasy -->
                 </div>
             </div>
 
@@ -74,6 +74,11 @@
                             <td class="text-slate-400">Real Madrid</td>
                             <td class="text-right font-bold text-emerald-400">21</td>
                         </tr>
+                        <tr>
+                            <td class="py-3 font-medium">Harry Kane</td>
+                            <td class="text-slate-400">Bayern München</td>
+                            <td class="text-right font-bold text-emerald-400">19</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -82,7 +87,7 @@
         <!-- HOKEJOVÁ SEKCE -->
         <section id="sec-hokej" class="space-y-8 hidden">
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                <h2 class="text-xl font-bold text-cyan-400 mb-4">Kanadské bodování (Hokej)</h2>
+                <h2 class="text-xl font-bold text-cyan-400 mb-4">Kanadské bodování (Hokej - NHL / Extraliga)</h2>
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b border-slate-700 text-slate-400">
@@ -97,6 +102,11 @@
                             <td class="text-slate-400">Edmonton Oilers</td>
                             <td class="text-right font-bold text-cyan-400">92 (30 + 62)</td>
                         </tr>
+                        <tr>
+                            <td class="py-3 font-medium">Nathan MacKinnon</td>
+                            <td class="text-slate-400">Colorado Avalanche</td>
+                            <td class="text-right font-bold text-cyan-400">88 (35 + 53)</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -104,8 +114,31 @@
 
     </main>
 
-    <!-- JavaScript pro stahování aktuálních dat -->
+    <!-- JavaScript -->
     <script>
+        // Zde si můžete velmi jednoduše upravovat zápasy pro jednotlivé ligy
+        const leagueData = {
+            'PL': [
+                { home: 'Manchester City', away: 'Arsenal', homeScore: 2, awayScore: 2, status: 'Konec' },
+                { home: 'Liverpool', away: 'Chelsea', homeScore: 3, awayScore: 1, status: 'Konec' },
+                { home: 'Manchester United', away: 'Tottenham', homeScore: 1, awayScore: 0, status: '🔴 Probíhá' },
+                { home: 'Newcastle United', away: 'Aston Villa', homeScore: '-', awayScore: '-', status: 'Dnes 21:00' }
+            ],
+            'PD': [
+                { home: 'Real Madrid', away: 'FC Barcelona', homeScore: 2, awayScore: 1, status: 'Konec' },
+                { home: 'Atletico Madrid', away: 'Villarreal', homeScore: 1, awayScore: 1, status: 'Konec' },
+                { home: 'Real Sociedad', away: 'Valencia', homeScore: '-', awayScore: '-', status: 'Zítra 19:00' }
+            ],
+            'BL1': [
+                { home: 'Bayern München', away: 'Borussia Dortmund', homeScore: 3, awayScore: 2, status: 'Konec' },
+                { home: 'RB Leipzig', away: 'Bayer Leverkusen', homeScore: 1, awayScore: 1, status: 'Konec' }
+            ],
+            'SA': [
+                { home: 'Inter Milán', away: 'Juventus', homeScore: 1, awayScore: 1, status: 'Konec' },
+                { home: 'AC Milán', away: 'AS Řím', homeScore: 2, awayScore: 0, status: 'Konec' }
+            ]
+        };
+
         function switchTab(sport) {
             const fotbalSec = document.getElementById('sec-fotbal');
             const hokejSec = document.getElementById('sec-hokej');
@@ -125,82 +158,42 @@
             }
         }
 
-        // Funkce pro automatické stahování reálných zápasů
-        async function loadLiveMatches(leagueName, buttonElement) {
+        function loadLeague(leagueCode, leagueName, buttonElement) {
             document.querySelectorAll('.league-btn').forEach(btn => {
                 btn.className = "league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600";
             });
             buttonElement.className = "league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500";
 
-            document.getElementById('league-title').innerText = `Online výsledky & Zápasy: ${leagueName}`;
+            document.getElementById('league-title').innerText = `Výsledky & Zápasy: ${leagueName}`;
             const container = document.getElementById('online-matches-container');
-            container.innerHTML = '<div class="text-slate-400 text-center py-4">Stahuji aktuální zápasy ze serveru...</div>';
+            container.innerHTML = '';
 
-            try {
-                // Veřejný endpoint pro stahování posledních zápasů dané ligy
-                const url = `https://www.thesportsdb.com/api/v1/json/4013016/searchallleagues.php?s=${encodeURIComponent(leagueName)}`;
-                
-                const response = await fetch(url);
-                if (!response.ok) throw new Error('Chyba sítě');
+            const matches = leagueData[leagueCode] || [];
 
-                const data = await response.json();
-                container.innerHTML = '';
-
-                // Získáme seznam lig podle názvu
-                const leagues = data.countrys || [];
-                if (leagues.length === 0) {
-                    container.innerHTML = '<div class="text-slate-400 text-center py-4">Pro tuto ligu nebyla nalezena data.</div>';
-                    return;
+            matches.forEach(match => {
+                let scoreDisplay = `${match.homeScore} : ${match.awayScore}`;
+                if (match.homeScore === '-') {
+                    scoreDisplay = 'vs';
                 }
 
-                // Pro zjednodušení vytvoříme dotaz na nejbližší rozlosování kol
-                const leagueId = leagues[0].idLeague;
-                const matchesResponse = await fetch(`https://www.thesportsdb.com/api/v1/json/4013016/eventsround.php?id=${leagueId}&r=38&s=2024-2025`);
-                const matchesData = await matchesResponse.json();
-                
-                const events = matchesData.events || [];
-
-                if (events.length === 0) {
-                    container.innerHTML = '<div class="text-slate-400 text-center py-4">Žádné aktuální zápasy k zobrazení.</div>';
-                    return;
-                }
-
-                // Vykreslíme prvních 6 zápasů
-                events.slice(0, 6).forEach(match => {
-                    const homeTeam = match.strHomeTeam;
-                    const awayTeam = match.strAwayTeam;
-                    const homeScore = match.intHomeScore ?? '-';
-                    const awayScore = match.intAwayScore ?? '-';
-                    const status = match.strStatus || 'Naplánováno';
-
-                    let scoreDisplay = `${homeScore} : ${awayScore}`;
-                    if (homeScore === '-' || awayScore === '-') {
-                        scoreDisplay = 'vs';
-                    }
-
-                    container.innerHTML += `
-                        <div class="p-4 bg-slate-700/50 rounded-lg flex justify-between items-center">
-                            <div>
-                                <span class="text-xs text-slate-400 block mb-1">${match.dateEvent || 'Zápas'}</span>
-                                <span class="font-semibold text-slate-200">${homeTeam} vs ${awayTeam}</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-lg font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded">${scoreDisplay}</span>
-                                <span class="text-xs text-amber-400 block mt-1">${status}</span>
-                            </div>
+                container.innerHTML += `
+                    <div class="p-4 bg-slate-700/50 rounded-lg flex justify-between items-center">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-1">Zápas</span>
+                            <span class="font-semibold text-slate-200">${match.home} vs ${match.away}</span>
                         </div>
-                    `;
-                });
-
-            } catch (error) {
-                console.error(error);
-                container.innerHTML = '<div class="text-rose-400 text-center py-4">Nepodařilo se automaticky stáhnout data. Zkuste to prosím později.</div>';
-            }
+                        <div class="text-right">
+                            <span class="text-lg font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded">${scoreDisplay}</span>
+                            <span class="text-xs text-amber-400 block mt-1">${match.status}</span>
+                        </div>
+                    </div>
+                `;
+            });
         }
 
-        // Automatické načtení při spuštění stránky
+        // Načtení Premier League při startu
         window.onload = function() {
-            loadLiveMatches('English Premier League', document.querySelector('.league-btn'));
+            loadLeague('PL', 'Anglie (Premier League)', document.querySelector('.league-btn'));
         };
     </script>
 </body>
