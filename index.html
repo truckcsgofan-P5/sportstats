@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
@@ -185,12 +185,16 @@
             container.innerHTML = '<div class="text-slate-400 text-center py-4">Stahuji živá data z API...</div>';
 
             try {
-                // Pozor: Zde nahraďte 'VÁŠ_API_KLÍČ_ZDE' vaším reálným klíčem
-                const response = await fetch(`https://api.football-data.org/v4/competitions/${leagueCode}/matches`, {
-                    headers: {
-                        'X-Auth-Token': 'f6ed2cbd00a4442d9ebca15c7ccdc4b3'
-                    }
-                });
+                // Přidáme před URL adresu veřejnou proxy (např. corsproxy.io)
+const apiUrl = `https://api.football-data.org/v4/competitions/${leagueCode}/matches`;
+const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(apiUrl);
+
+const response = await fetch(proxyUrl, {
+    headers: {
+        'X-Auth-Token': 'f6ed2cbd00a4442d9ebca15c7ccdc4b3'
+    }
+});
+
 
                 if (!response.ok) {
                     throw new Error('Chyba při komunikaci s API');
