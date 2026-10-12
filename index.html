@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportStats - Fotbal & Hokej Statistiky</title>
+    <!-- Tailwind CSS pro moderní vzhled -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans min-h-screen">
+
+    <!-- Hlavička -->
+    <header class="bg-slate-800 border-b border-slate-700 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-emerald-400">⚽🏒 SportStats</h1>
+            <nav class="space-x-4">
+                <button onclick="switchTab('fotbal')" id="btn-fotbal" class="px-4 py-2 bg-emerald-600 rounded-lg font-semibold transition hover:bg-emerald-500">Fotbal</button>
+                <button onclick="switchTab('hokej')" id="btn-hokej" class="px-4 py-2 bg-slate-700 rounded-lg font-semibold transition hover:bg-slate-600">Hokej</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hlavní obsah -->
+    <main class="max-w-6xl mx-auto px-4 py-8">
+
+        <!-- FOTBALOVÁ SEKCE -->
+        <section id="sec-fotbal" class="space-y-8">
+            
+            <!-- Výběr lig (Změněno na kódy pro API) -->
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-2 items-center justify-between">
+                <span class="text-slate-400 font-semibold text-sm">Vyberte ligu:</span>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="loadLeague('PL', 'Anglie (Premier League)', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie</button>
+                    <button onclick="loadLeague('PD', 'Španělsko (La Liga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
+                    <button onclick="loadLeague('BL1', 'Německo (Bundesliga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
+                    <button onclick="loadLeague('SA', 'Itálie (Serie A)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Itálie</button>
+                    <button onclick="loadLeague('FL1', 'Francie (Ligue 1)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Francie</button>
+                </div>
+            </div>
+
+            <!-- Online výsledky a zápasy (napojené na API) -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-emerald-400" id="league-title">Online výsledky & Zápasy: Anglie (Premier League)</h2>
+                    <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Live API data
+                    </span>
+                </div>
+                
+                <!-- Kontejner pro dynamické načítání -->
+                <div id="online-matches-container" class="space-y-3">
+                    <div class="text-slate-400 text-center py-4">Kliknutím na ligu načtete aktuální zápasy...</div>
+                </div>
+            </div>
+
+            <!-- Pravděpodobnosti zápasů -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h2 class="text-xl font-bold text-emerald-400 mb-4">Pravděpodobnost výhry nadcházejících zápasů</h2>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Arsenal (45%) vs Chelsea (25%) | Remíza (30%)</span>
+                            <span class="text-emerald-400 font-semibold">Arsenal vs Chelsea</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-4 rounded-full overflow-hidden flex">
+                            <div class="bg-emerald-500 h-full" style="width: 45%" title="Arsenal 45%"></div>
+                            <div class="bg-amber-500 h-full" style="width: 30%" title="Remíza 30%"></div>
+                            <div class="bg-rose-500 h-full" style="width: 25%" title="Chelsea 25%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabulka střelců -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h2 class="text-xl font-bold text-emerald-400 mb-4">Top střelci (Fotbal)</h2>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-400">
+                            <th class="py-2">Hráč</th>
+                            <th class="py-2">Tým</th>
+                            <th class="py-2 text-right">Góly</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700">
+                        <tr>
+                            <td class="py-3 font-medium">Erling Haaland</td>
+                            <td class="text-slate-400">Manchester City</td>
+                            <td class="text-right font-bold text-emerald-400">24</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-medium">Kylian Mbappé</td>
+                            <td class="text-slate-400">Real Madrid</td>
+                            <td class="text-right font-bold text-emerald-400">21</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-medium">Harry Kane</td>
+                            <td class="text-slate-400">Bayern Munich</td>
+                            <td class="text-right font-bold text-emerald-400">19</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- HOKEJOVÁ SEKCE -->
+        <section id="sec-hokej" class="space-y-8 hidden">
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h2 class="text-xl font-bold text-cyan-400 mb-4">Pravděpodobnost výhry nadcházejících zápasů (Hokej)</h2>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-1">
+                            <span>Boston Bruins (55%) vs Toronto Maple Leafs (45%)</span>
+                            <span class="text-cyan-400 font-semibold">Boston vs Toronto</span>
+                        </div>
+                        <div class="w-full bg-slate-700 h-4 rounded-full overflow-hidden flex">
+                            <div class="bg-cyan-500 h-full" style="width: 55%"></div>
+                            <div class="bg-rose-500 h-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabulka střelců hokej -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h2 class="text-xl font-bold text-cyan-400 mb-4">Kanadské bodování (Hokej)</h2>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-400">
+                            <th class="py-2">Hráč</th>
+                            <th class="py-2">Tým</th>
+                            <th class="py-2 text-right">Body (G + A)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-700">
+                        <tr>
+                            <td class="py-3 font-medium">Connor McDavid</td>
+                            <td class="text-slate-400">Edmonton Oilers</td>
+                            <td class="text-right font-bold text-cyan-400">92 (30 + 62)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 font-medium">Nathan MacKinnon</td>
+                            <td class="text-slate-400">Colorado Avalanche</td>
+                            <td class="text-right font-bold text-cyan-400">88 (35 + 53)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript pro logiku a API připojení -->
+    <script>
+        function switchTab(sport) {
+            const fotbalSec = document.getElementById('sec-fotbal');
+            const hokejSec = document.getElementById('sec-hokej');
+            const btnFotbal = document.getElementById('btn-fotbal');
+            const btnHokej = document.getElementById('btn-hokej');
+
+            if (sport === 'fotbal') {
+                fotbalSec.classList.remove('hidden');
+                hokejSec.classList.add('hidden');
+                btnFotbal.className = "px-4 py-2 bg-emerald-600 rounded-lg font-semibold transition hover:bg-emerald-500";
+                btnHokej.className = "px-4 py-2 bg-slate-700 rounded-lg font-semibold transition hover:bg-slate-600";
+            } else {
+                fotbalSec.classList.add('hidden');
+                hokejSec.classList.remove('hidden');
+                btnHokej.className = "px-4 py-2 bg-cyan-600 rounded-lg font-semibold transition hover:bg-cyan-500";
+                btnFotbal.className = "px-4 py-2 bg-slate-700 rounded-lg font-semibold transition hover:bg-slate-600";
+            }
+        }
+
+        // Asynchronní funkce pro stahování dat ze živého API
+        async function loadLeague(leagueCode, leagueName, buttonElement) {
+            // 1. Zvýraznění aktivního tlačítka
+            document.querySelectorAll('.league-btn').forEach(btn => {
+                btn.className = "league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600";
+            });
+            buttonElement.className = "league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500";
+
+            // 2. Změna nadpisu a zobrazení načítání
+            document.getElementById('league-title').innerText = `Online výsledky & Zápasy: ${leagueName}`;
+            const container = document.getElementById('online-matches-container');
+            container.innerHTML = '<div class="text-slate-400 text-center py-4">Stahuji živá data z API...</div>';
+
+            try {
+                // Pozor: Zde nahraďte 'VÁŠ_API_KLÍČ_ZDE' vaším reálným klíčem
+                const response = await fetch(`https://api.football-data.org/v4/competitions/${leagueCode}/matches`, {
+                    headers: {
+                        'X-Auth-Token': 'f6ed2cbd00a4442d9ebca15c7ccdc4b3'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Chyba při komunikaci s API');
+                }
+
+                const data = await response.json();
+                container.innerHTML = '';
+
+                // Vezmeme prvních 6 zápasů z aktuální sezóny
+                const matches = data.matches.slice(0, 6);
+
+                if (matches.length === 0) {
+                    container.innerHTML = '<div class="text-slate-400 text-center py-4">Pro tuto ligu nejsou nyní k dispozici žádné zápasy.</div>';
+                    return;
+                }
+
+                matches.forEach(match => {
+                    const homeTeam = match.homeTeam.name;
+                    const awayTeam = match.awayTeam.name;
+                    const homeScore = match.score.fullTime.home ?? '-';
+                    const awayScore = match.score.fullTime.away ?? '-';
+                    
+                    let statusText = 'Naplánováno';
+                    let scoreDisplay = `${homeScore} : ${awayScore}`;
+                    
+                    if (match.status === 'IN_PLAY') {
+                        statusText = '🔴 Právě probíhá';
+                    } else if (match.status === 'FINISHED') {
+                        statusText = 'Konec';
+                    } else {
+                        scoreDisplay = 'vs';
+                        statusText = new Date(match.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+
+                    container.innerHTML += `
+                        <div class="p-4 bg-slate-700/50 rounded-lg flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Zápas</span>
+                                <span class="font-semibold text-slate-200">${homeTeam} vs ${awayTeam}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded">${scoreDisplay}</span>
+                                <span class="text-xs text-amber-400 block mt-1">${statusText}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<div class="text-rose-400 text-center py-4">Nepodařilo se načíst data. Zkontrolujte svůj API klíč nebo CORS omezení v prohlížeči.</div>';
+            }
+        }
+    </script>
+</body>
+</html>
