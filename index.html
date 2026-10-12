@@ -34,21 +34,22 @@
                     <button onclick="loadLeague('PD', 'Španělsko (La Liga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
                     <button onclick="loadLeague('BL1', 'Německo (Bundesliga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
                     <button onclick="loadLeague('SA', 'Itálie (Serie A)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Itálie</button>
+                    <button onclick="loadLeague('FL1', 'Francie (Ligue 1)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Francie</button>
                 </div>
             </div>
 
-            <!-- Výsledky a zápasy -->
+            <!-- Online výsledky a zápasy -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-emerald-400" id="league-title">Výsledky & Zápasy: Anglie (Premier League)</h2>
+                    <h2 class="text-xl font-bold text-emerald-400" id="league-title">Online výsledky & Zápasy: Anglie (Premier League)</h2>
                     <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Stabilní režim
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Netlify Live Proxy
                     </span>
                 </div>
                 
-                <!-- Kontejner pro zápasy -->
+                <!-- Kontejner pro dynamické načítání -->
                 <div id="online-matches-container" class="space-y-3">
-                    <!-- Sem se dynamicky nahrají zápasy -->
+                    <div class="text-slate-400 text-center py-4">Kliknutím na ligu načtete aktuální zápasy...</div>
                 </div>
             </div>
 
@@ -76,7 +77,7 @@
                         </tr>
                         <tr>
                             <td class="py-3 font-medium">Harry Kane</td>
-                            <td class="text-slate-400">Bayern München</td>
+                            <td class="text-slate-400">Bayern Munich</td>
                             <td class="text-right font-bold text-emerald-400">19</td>
                         </tr>
                     </tbody>
@@ -87,7 +88,7 @@
         <!-- HOKEJOVÁ SEKCE -->
         <section id="sec-hokej" class="space-y-8 hidden">
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
-                <h2 class="text-xl font-bold text-cyan-400 mb-4">Kanadské bodování (Hokej - NHL / Extraliga)</h2>
+                <h2 class="text-xl font-bold text-cyan-400 mb-4">Kanadské bodování (Hokej)</h2>
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b border-slate-700 text-slate-400">
@@ -102,11 +103,6 @@
                             <td class="text-slate-400">Edmonton Oilers</td>
                             <td class="text-right font-bold text-cyan-400">92 (30 + 62)</td>
                         </tr>
-                        <tr>
-                            <td class="py-3 font-medium">Nathan MacKinnon</td>
-                            <td class="text-slate-400">Colorado Avalanche</td>
-                            <td class="text-right font-bold text-cyan-400">88 (35 + 53)</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -116,29 +112,6 @@
 
     <!-- JavaScript -->
     <script>
-        // Zde si můžete velmi jednoduše upravovat zápasy pro jednotlivé ligy
-        const leagueData = {
-            'PL': [
-                { home: 'Manchester City', away: 'Arsenal', homeScore: 2, awayScore: 2, status: 'Konec' },
-                { home: 'Liverpool', away: 'Chelsea', homeScore: 3, awayScore: 1, status: 'Konec' },
-                { home: 'Manchester United', away: 'Tottenham', homeScore: 1, awayScore: 0, status: '🔴 Probíhá' },
-                { home: 'Newcastle United', away: 'Aston Villa', homeScore: '-', awayScore: '-', status: 'Dnes 21:00' }
-            ],
-            'PD': [
-                { home: 'Real Madrid', away: 'FC Barcelona', homeScore: 2, awayScore: 1, status: 'Konec' },
-                { home: 'Atletico Madrid', away: 'Villarreal', homeScore: 1, awayScore: 1, status: 'Konec' },
-                { home: 'Real Sociedad', away: 'Valencia', homeScore: '-', awayScore: '-', status: 'Zítra 19:00' }
-            ],
-            'BL1': [
-                { home: 'Bayern München', away: 'Borussia Dortmund', homeScore: 3, awayScore: 2, status: 'Konec' },
-                { home: 'RB Leipzig', away: 'Bayer Leverkusen', homeScore: 1, awayScore: 1, status: 'Konec' }
-            ],
-            'SA': [
-                { home: 'Inter Milán', away: 'Juventus', homeScore: 1, awayScore: 1, status: 'Konec' },
-                { home: 'AC Milán', away: 'AS Řím', homeScore: 2, awayScore: 0, status: 'Konec' }
-            ]
-        };
-
         function switchTab(sport) {
             const fotbalSec = document.getElementById('sec-fotbal');
             const hokejSec = document.getElementById('sec-hokej');
@@ -158,40 +131,74 @@
             }
         }
 
-        function loadLeague(leagueCode, leagueName, buttonElement) {
+        // Asynchronní funkce stahující data přes Netlify Proxy (/api)
+        async function loadLeague(leagueCode, leagueName, buttonElement) {
             document.querySelectorAll('.league-btn').forEach(btn => {
                 btn.className = "league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600";
             });
             buttonElement.className = "league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500";
 
-            document.getElementById('league-title').innerText = `Výsledky & Zápasy: ${leagueName}`;
+            document.getElementById('league-title').innerText = `Online výsledky & Zápasy: ${leagueName}`;
             const container = document.getElementById('online-matches-container');
-            container.innerHTML = '';
+            container.innerHTML = '<div class="text-slate-400 text-center py-4">Stahuji živá data z API přes Netlify...</div>';
 
-            const matches = leagueData[leagueCode] || [];
+            try {
+                // Voláme naši vlastní adresu /api/competitions/... místo přímé externí URL
+                const response = await fetch(`/api/competitions/${leagueCode}/matches`);
 
-            matches.forEach(match => {
-                let scoreDisplay = `${match.homeScore} : ${match.awayScore}`;
-                if (match.homeScore === '-') {
-                    scoreDisplay = 'vs';
+                if (!response.ok) {
+                    throw new Error('Chyba při komunikaci s API');
                 }
 
-                container.innerHTML += `
-                    <div class="p-4 bg-slate-700/50 rounded-lg flex justify-between items-center">
-                        <div>
-                            <span class="text-xs text-slate-400 block mb-1">Zápas</span>
-                            <span class="font-semibold text-slate-200">${match.home} vs ${match.away}</span>
+                const data = await response.json();
+                container.innerHTML = '';
+
+                const matches = data.matches.slice(0, 6);
+
+                if (matches.length === 0) {
+                    container.innerHTML = '<div class="text-slate-400 text-center py-4">Pro tuto ligu nejsou nyní k dispozici žádné zápasy.</code></div>';
+                    return;
+                }
+
+                matches.forEach(match => {
+                    const homeTeam = match.homeTeam.name;
+                    const awayTeam = match.awayTeam.name;
+                    const homeScore = match.score.fullTime.home ?? '-';
+                    const awayScore = match.score.fullTime.away ?? '-';
+                    
+                    let statusText = 'Naplánováno';
+                    let scoreDisplay = `${homeScore} : ${awayScore}`;
+                    
+                    if (match.status === 'IN_PLAY') {
+                        statusText = '🔴 Právě probíhá';
+                    } else if (match.status === 'FINISHED') {
+                        statusText = 'Konec';
+                    } else {
+                        scoreDisplay = 'vs';
+                        statusText = new Date(match.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+
+                    container.innerHTML += `
+                        <div class="p-4 bg-slate-700/50 rounded-lg flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Zápas</span>
+                                <span class="font-semibold text-slate-200">${homeTeam} vs ${awayTeam}</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded">${scoreDisplay}</span>
+                                <span class="text-xs text-amber-400 block mt-1">${statusText}</span>
+                            </div>
                         </div>
-                        <div class="text-right">
-                            <span class="text-lg font-bold text-emerald-400 bg-slate-900 px-3 py-1 rounded">${scoreDisplay}</span>
-                            <span class="text-xs text-amber-400 block mt-1">${match.status}</span>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                });
+
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = '<div class="text-rose-400 text-center py-4">Nepodařilo se načíst data z API.</div>';
+            }
         }
 
-        // Načtení Premier League při startu
+        // Automatické načtení při spuštění stránky
         window.onload = function() {
             loadLeague('PL', 'Anglie (Premier League)', document.querySelector('.league-btn'));
         };
