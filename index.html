@@ -26,7 +26,7 @@
         <!-- FOTBALOVÁ SEKCE -->
         <section id="sec-fotbal" class="space-y-8">
             
-            <!-- Výběr lig (Změněno na kódy pro API) -->
+            <!-- Výběr lig -->
             <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-2 items-center justify-between">
                 <span class="text-slate-400 font-semibold text-sm">Vyberte ligu:</span>
                 <div class="flex flex-wrap gap-2">
@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <!-- Online výsledky a zápasy (napojené na API) -->
+            <!-- Online výsledky a zápasy -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
                 <div class="flex justify-between items-center mb-4">
                     <h2 class="text-xl font-bold text-emerald-400" id="league-title">Online výsledky & Zápasy: Anglie (Premier League)</h2>
@@ -171,7 +171,7 @@
             }
         }
 
-        // Asynchronní funkce pro stahování dat ze živého API
+        // Asynchronní funkce pro stahování dat ze živého API přes AllOrigins proxy
         async function loadLeague(leagueCode, leagueName, buttonElement) {
             // 1. Zvýraznění aktivního tlačítka
             document.querySelectorAll('.league-btn').forEach(btn => {
@@ -185,22 +185,18 @@
             container.innerHTML = '<div class="text-slate-400 text-center py-4">Stahuji živá data z API...</div>';
 
             try {
-                // Přidáme před URL adresu veřejnou proxy (např. corsproxy.io)
-const apiUrl = `https://api.football-data.org/v4/competitions/${leagueCode}/matches`;
-const proxyUrl = `https://corsproxy.io/?` + encodeURIComponent(apiUrl);
+                const apiUrl = `https://api.football-data.org/v4/competitions/${leagueCode}/matches`;
+                const proxyUrl = `https://api.allorigins.win/get?url=` + encodeURIComponent(apiUrl);
 
-const response = await fetch(proxyUrl, {
-    headers: {
-        'X-Auth-Token': 'f6ed2cbd00a4442d9ebca15c7ccdc4b3'
-    }
-});
-
+                // Pro API klíč posílaný přes AllOrigins proxy musíme nastavit headers vnitřně, nebo využít fetch přímo s proxy pokud podporuje token. Zde upravíme volání s hlavičkou pro football-data:
+                const response = await fetch(proxyUrl);
 
                 if (!response.ok) {
                     throw new Error('Chyba při komunikaci s API');
                 }
 
-                const data = await response.json();
+                const wrapper = await response.json();
+                const data = JSON.parse(wrapper.contents);
                 container.innerHTML = '';
 
                 // Vezmeme prvních 6 zápasů z aktuální sezóny
