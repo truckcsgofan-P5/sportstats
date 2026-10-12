@@ -1,0 +1,6 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://api.football-data.org/v4/:splat"
+  status = 200
+  force = true
+  headers = { "X-Auth-Token" = "f6ed2cbd00a4442d9ebca15c7ccdc4b3" }
