@@ -75,6 +75,11 @@ league_name = st.sidebar.selectbox(
 )
 current_league = st.session_state.leagues[league_name]
 
+# Tlačítko pro reset dat (pokud by se tabulka rozbila)
+if st.sidebar.button("🔄 Resetovat data ligy"):
+  del st.session_state.leagues
+  st.rerun()
+
 st.header(f"🏆 {league_name}")
 
 # Záložky v aplikaci
@@ -86,73 +91,81 @@ with tab1:
   matches_df = current_league["matches"]
   table_data = {}
 
-  for _, row in matches_df.iterrows():
-    if row.get("Odehráno", True):
-      home = row["Domácí"]
-      away = row["Hosté"]
-      try:
-        hs = int(row["Skóre Domácí"])
-        as_ = int(row["Skóre Hosté"])
-      except ValueError:
-        continue
-
-      for team in [home, away]:
-        if team not in table_data:
-          table_data[team] = {
-              "Zápasy": 0,
-              "Výhry": 0,
-              "Remízy": 0,
-              "Prohry": 0,
-              "Vstřelené": 0,
-              "Obdržené": 0,
-              "Body": 0,
-          }
-
-      table_data[home]["Zápasy"] += 1
-      table_data[away]["Zápasy"] += 1
-      table_data[home]["Vstřelené"] += hs
-      table_data[home]["Obdržené"] += as_
-      table_data[away]["Vstřelené"] += as_
-      table_data[away]["Obdržené"] += hs
-
-      if hs > as_:
-        table_data[home]["Výhry"] += 1
-        table_data[home]["Body"] += 3
-        table_data[away]["Prohry"] += 1
-      elif hs < as_:
-        table_data[away]["Výhry"] += 1
-        table_data[away]["Body"] += 3
-        table_data[home]["Prohry"] += 1
-      else:
-        table_data[home]["Remízy"] += 1
-        table_data[home]["Body"] += 1
-        table_data[away]["Remízy"] += 1
-        table_data[away]["Body"] += 1
-
-  if table_data:
-    standings_list = []
-    for team, stats in table_data.items():
-      gd = stats["Vstřelené"] - stats["Obdržené"]
-      standings_list.append({
-          "Tým": team,
-          "Z": stats["Zápasy"],
-          "V": stats["Výhry"],
-          "R": stats["Remízy"],
-          "P": stats["Prohry"],
-          "Skóre": f"{stats['Vstřelené']}:{stats['Obdržené']}",
-          "GD": gd,
-          "Body": stats["Body"],
-      })
-    standings_df = pd.DataFrame(standings_list).sort_values(
-        by=["Body", "GD", "Vstřelené"], ascending=False
+  # Bezpečnostní kontrola sloupců
+  required_cols = {"Domácí", "Hosté", "Skóre Domácí", "Skóre Hosté"}
+  if not required_cols.issubset(matches_df.columns):
+    st.error(
+        "⚠️ V tabulce zápasů došlo ke změně názvů sloupců! Použijte prosím"
+        " tlačítko 'Resetovat data ligy' v postranním panelu."
     )
-    standings_df.reset_index(drop=True, inplace=True)
-    standings_df.index += 1  # Pořadí od 1
-    st.dataframe(standings_df, use_container_width=True)
   else:
-    st.info("Zatím nejsou k dispozici žádné odehrané zápasy.")
+    for _, row in matches_df.iterrows():
+      if row.get("Odehráno", True):
+        home = row["Domácí"]
+        away = row["Hosté"]
+        try:
+          hs = int(row["Skóre Domácí"])
+          as_ = int(row["Skóre Hosté"])
+        except (ValueError, TypeError):
+          continue  # Přeskočí neplatné hodnoty
 
-# 2. SPRÁVA ZÁPASŮ (Interaktivní tabulka)
+        for team in [home, away]:
+          if team not in table_data:
+            table_data[team] = {
+                "Zápasy": 0,
+                "Výhry": 0,
+                "Remízy": 0,
+                "Prohry": 0,
+                "Vstřelené": 0,
+                "Obdržené": 0,
+                "Body": 0,
+            }
+
+        table_data[home]["Zápasy"] += 1
+        table_data[away]["Zápasy"] += 1
+        table_data[home]["Vstřelené"] += hs
+        table_data[home]["Obdržené"] += as_
+        table_data[away]["Vstřelené"] += as_
+        table_data[away]["Obdržené"] += hs
+
+        if hs > as_:
+          table_data[home]["Výhry"] += 1
+          table_data[home]["Body"] += 3
+          table_data[away]["Prohry"] += 1
+        elif hs < as_:
+          table_data[away]["Výhry"] += 1
+          table_data[away]["Body"] += 3
+          table_data[home]["Prohry"] += 1
+        else:
+          table_data[home]["Remízy"] += 1
+          table_data[home]["Body"] += 1
+          table_data[away]["Remízy"] += 1
+          table_data[away]["Body"] += 1
+
+    if table_data:
+      standings_list = []
+      for team, stats in table_data.items():
+        gd = stats["Vstřelené"] - stats["Obdržené"]
+        standings_list.append({
+            "Tým": team,
+            "Z": stats["Zápasy"],
+            "V": stats["Výhry"],
+            "R": stats["Remízy"],
+            "P": stats["Prohry"],
+            "Skóre": f"{stats['Vstřelené']}:{stats['Obdržené']}",
+            "GD": gd,
+            "Body": stats["Body"],
+        })
+      standings_df = pd.DataFrame(standings_list).sort_values(
+          by=["Body", "GD", "Vstřelené"], ascending=False
+      )
+      standings_df.reset_index(drop=True, inplace=True)
+      standings_df.index += 1
+      st.dataframe(standings_df, use_container_width=True)
+    else:
+      st.info("Zatím nejsou k dispozici žádné platné odehrané zápasy.")
+
+# 2. SPRÁVA ZÁPASŮ
 with tab2:
   st.subheader("Správa zápasů a výsledků")
   st.markdown(
@@ -160,7 +173,6 @@ with tab2:
       " (kliknutím na + nebo na konec tabulky)."
   )
 
-  # Interaktivní editor tabulky zápasů
   edited_matches = st.data_editor(
       current_league["matches"],
       num_rows="dynamic",
@@ -169,7 +181,7 @@ with tab2:
   )
   current_league["matches"] = edited_matches
 
-# 3. SPRÁVA STŘELCŮ (Interaktivní tabulka)
+# 3. SPRÁVA STŘELCŮ
 with tab3:
   st.subheader("Top střelci")
   st.markdown(
