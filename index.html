@@ -30,34 +30,34 @@
             <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-2 items-center justify-between">
                 <span class="text-slate-400 font-semibold text-sm">Vyberte ligu:</span>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="switchLeague('PL', 'Premier League', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie (PL)</button>
-                    <button onclick="switchLeague('PD', 'La Liga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
-                    <button onclick="switchLeague('BL1', 'Bundesliga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
+                    <button onclick="switchLeague('premier-league', 'Premier League', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie (PL)</button>
+                    <button onclick="switchLeague('la-liga', 'La Liga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
+                    <button onclick="switchLeague('bundesliga', 'Bundesliga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
                 </div>
             </div>
 
             <!-- Živý widget pro výsledky a tabulku -->
             <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-emerald-400" id="widget-title">Živé výsledky & Tabulka: Premier League</h2>
+                    <h2 class="text-xl font-bold text-emerald-400" id="widget-title">Živé výsledky & Zápasy: Premier League</h2>
                     <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Živá data Sofascore
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Živá data
                     </span>
                 </div>
                 
                 <!-- Kontejner pro widget -->
-                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[500px]">
+                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[550px]">
                     <!-- Premier League Widget -->
-                    <div id="widget-PL" class="league-widget">
-                        <iframe src="https://www.sofascore.com/tournament/17/widget" style="height:600px; width:100%; border:0;" scrolling="yes"></iframe>
+                    <div id="widget-premier-league" class="league-widget">
+                        <iframe src="https://www.scoreaxis.com/widget/embed/premier-league?theme=dark" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
                     </div>
                     <!-- La Liga Widget -->
-                    <div id="widget-PD" class="league-widget hidden">
-                        <iframe src="https://www.sofascore.com/tournament/8/widget" style="height:600px; width:100%; border:0;" scrolling="yes"></iframe>
+                    <div id="widget-la-liga" class="league-widget hidden">
+                        <iframe src="https://www.scoreaxis.com/widget/embed/la-liga?theme=dark" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
                     </div>
                     <!-- Bundesliga Widget -->
-                    <div id="widget-BL1" class="league-widget hidden">
-                        <iframe src="https://www.sofascore.com/tournament/35/widget" style="height:600px; width:100%; border:0;" scrolling="yes"></iframe>
+                    <div id="widget-bundesliga" class="league-widget hidden">
+                        <iframe src="https://www.scoreaxis.com/widget/embed/bundesliga?theme=dark" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
                     </div>
                 </div>
             </div>
@@ -74,15 +74,15 @@
                 </div>
                 
                 <!-- Hokejový widget -->
-                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[500px]">
-                    <iframe src="https://www.sofascore.com/tournament/234/widget" style="height:600px; width:100%; border:0;" scrolling="yes"></iframe>
+                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[550px]">
+                    <iframe src="https://www.scoreaxis.com/widget/embed/nhl?theme=dark" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- JavaScript pro přepínání záložek a lig -->
+    <!-- JavaScript pro přepínání -->
     <script>
         function switchTab(sport) {
             const fotbalSec = document.getElementById('sec-fotbal');
@@ -104,16 +104,13 @@
         }
 
         function switchLeague(leagueCode, leagueName, buttonElement) {
-            // Zvýraznění aktivního tlačítka ligy
             document.querySelectorAll('.league-btn').forEach(btn => {
                 btn.className = "league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600";
             });
             buttonElement.className = "league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500";
 
-            // Změna nadpisu
-            document.getElementById('widget-title').innerText = `Živé výsledky & Tabulka: ${leagueName}`;
+            document.getElementById('widget-title').innerText = `Živé výsledky & Zápasy: ${leagueName}`;
 
-            // Skrytí všech widgetů a zobrazení vybraného
             document.querySelectorAll('.league-widget').forEach(widget => {
                 widget.classList.add('hidden');
             });
