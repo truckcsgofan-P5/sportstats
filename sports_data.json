@@ -1,0 +1,54 @@
+{
+    "Premier League (Anglie)": {
+        "teams": [
+            "Manchester City",
+            "Arsenal",
+            "Liverpool",
+            "Chelsea",
+            "Manchester United",
+            "Tottenham"
+        ],
+        "matches": [],
+        "scorers": [
+            {
+                "Hráč": "Erling Haaland",
+                "Tým": "Manchester City",
+                "Góly": 10
+            },
+            {
+                "Hráč": "Cole Palmer",
+                "Tým": "Chelsea",
+                "Góly": 7
+            }
+        ]
+    },
+    "La Liga (Španělsko)": {
+        "teams": [
+            "Real Madrid",
+            "Barcelona",
+            "Atletico Madrid",
+            "Villarreal"
+        ],
+        "matches": [
+            {
+                "Domácí": "Real Madrid",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
+            }
+        ],
+        "scorers": [
+            {
+                "Hráč": "Kylian Mbappé",
+                "Tým": "Real Madrid",
+                "Góly": 9
+            },
+            {
+                "Hráč": "Robert Lewandowski",
+                "Tým": "Barcelona",
+                "Góly": 8
+            }
+        ]
+    }
+}
