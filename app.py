@@ -1,6 +1,8 @@
+import base64
 import json
 import os
 import pandas as pd
+import requests
 import streamlit as st
 
 # Nastavení stránky
@@ -8,29 +10,16 @@ st.set_page_config(
     page_title="SportStats - Aplikace", page_icon="⚽", layout="wide"
 )
 
-DATA_FILE = "sports_data.json"
+# Konfigurace pro GitHub API (pokud jsou nastavené Secrets na Streamlit Cloudu)
+HAS_GITHUB = "GITHUB_TOKEN" in st.secrets and "GITHUB_REPO" in st.secrets
+GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
+GITHUB_REPO = st.secrets.get(
+    "GITHUB_REPO", ""
+)  # např. "vaše-jméno/sportstats"
+FILE_PATH = "sports_data.json"
 
 
-# Funkce pro načtení dat ze souboru
-def load_data():
-  if os.path.exists(DATA_FILE):
-    try:
-      with open(DATA_FILE, "r", encoding="utf-8") as f:
-        raw_data = json.load(f)
-      loaded = {}
-      for league, content in raw_data.items():
-        loaded[league] = {
-            "teams": content.get("teams", []),
-            "matches": pd.DataFrame(content["matches"]),
-            "scorers": pd.DataFrame(content["scorers"]),
-        }
-      return loaded
-    except Exception:
-      return get_default_data()
-  return get_default_data()
-
-
-# Výchozí data, pokud soubor ještě neexistuje
+# Výchozí data
 def get_default_data():
   return {
       "Premier League (Anglie)": {
@@ -87,7 +76,51 @@ def get_default_data():
   }
 
 
-# Funkce pro uložení dat do souboru
+# Funkce pro načtení dat (z GitHubu nebo lokálně)
+def load_data():
+  if HAS_GITHUB:
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+    }
+    try:
+      response = requests.get(url, headers=headers)
+      if response.status_code == 200:
+        content_file = response.json()
+        file_content_bytes = base64.b64decode(content_file["content"])
+        raw_data = json.loads(file_content_bytes.decode("utf-8"))
+
+        loaded = {}
+        for league, content in raw_data.items():
+          loaded[league] = {
+              "teams": content.get("teams", []),
+              "matches": pd.DataFrame(content["matches"]),
+              "scorers": pd.DataFrame(content["scorers"]),
+          }
+        return loaded
+    except Exception:
+      pass
+  else:
+    # Lokální fallback
+    if os.path.exists(FILE_PATH):
+      try:
+        with open(FILE_PATH, "r", encoding="utf-8") as f:
+          raw_data = json.load(f)
+        loaded = {}
+        for league, content in raw_data.items():
+          loaded[league] = {
+              "teams": content.get("teams", []),
+              "matches": pd.DataFrame(content["matches"]),
+              "scorers": pd.DataFrame(content["scorers"]),
+          }
+        return loaded
+      except Exception:
+        pass
+  return get_default_data()
+
+
+# Funkce pro uložení dat (na GitHub nebo lokálně)
 def save_data():
   data_to_save = {}
   for league, content in st.session_state.leagues.items():
@@ -96,25 +129,53 @@ def save_data():
         "matches": content["matches"].to_dict("records"),
         "scorers": content["scorers"].to_dict("records"),
     }
-  with open(DATA_FILE, "w", encoding="utf-8") as f:
-    json.dump(data_to_save, f, ensure_ascii=False, indent=4)
+
+  if HAS_GITHUB:
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+    }
+
+    json_str = json.dumps(data_to_save, ensure_ascii=False, indent=4)
+    encoded_content = base64.b64encode(json_str.encode("utf-8")).decode(
+        "utf-8"
+    )
+
+    # Zjistíme aktuální SHA souboru (GitHub to vyžaduje při aktualizaci)
+    sha = None
+    get_resp = requests.get(url, headers=headers)
+    if get_resp.status_code == 200:
+      sha = get_resp.json().get("sha")
+
+    payload = {
+        "message": "Automatická aktualizace sportovních dat přes aplikaci",
+        "content": encoded_content,
+    }
+    if sha:
+      payload["sha"] = sha
+
+    requests.put(url, headers=headers, json=payload)
+  else:
+    with open(FILE_PATH, "w", encoding="utf-8") as f:
+      json.dump(data_to_save, f, ensure_ascii=False, indent=4)
 
 
 # Inicializace stavu
 if "leagues" not in st.session_state:
   st.session_state.leagues = load_data()
 
-st.title("⚽🏒 SportStats - Kompletní správa lig")
+st.title("⚽🏒 SportStats - Správa lig (Ukládání na GitHub)")
 st.markdown(
-    "Aplikace pro správu týmů, zápasů, střelců a automatický výpočet tabulek."
+    "Všechny změny (týmy, zápasy, střelci) se automaticky ukládají přímo do"
+    " vašeho repozitáře na GitHubu."
 )
 
-# Postranní panel pro navigaci a správu lig
+# Postranní panel
 st.sidebar.header("⚙️ Navigace")
 
-# 1. SEKCE PRO VYTVOŘENÍ NOVÉ LIGY
 with st.sidebar.expander("➕ Vytvořit novou ligu"):
-  new_league_name = st.text_input("Název ligy (např. Serie A)")
+  new_league_name = st.text_input("Název ligy")
   if st.button("Vytvořit ligu"):
     league_clean = new_league_name.strip()
     if league_clean:
@@ -133,33 +194,47 @@ with st.sidebar.expander("➕ Vytvořit novou ligu"):
             "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
         }
         save_data()
-        st.success(f"Liga '{league_clean}' byla vytvořena!")
+        st.success(f"Liga '{league_clean}' byla vytvořena a uložena na GitHub!")
         st.rerun()
       else:
         st.error("Tato liga již existuje!")
     else:
       st.error("Zadejte název ligy!")
 
-# Výběr aktivní ligy
 league_name = st.sidebar.selectbox(
     "Vyberte ligu", list(st.session_state.leagues.keys())
 )
 current_league = st.session_state.leagues[league_name]
 
 if st.sidebar.button("🔄 Resetovat vše do výchozího stavu"):
-  if os.path.exists(DATA_FILE):
-    os.remove(DATA_FILE)
+  if HAS_GITHUB:
+    # Smažeme soubor z GitHubu
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
+    headers = {
+        "Authorization": f"token {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json",
+    }
+    get_resp = requests.get(url, headers=headers)
+    if get_resp.status_code == 200:
+      sha = get_resp.json().get("sha")
+      requests.delete(
+          url,
+          headers=headers,
+          json={"message": "Reset dat", "sha": sha},
+      )
+  elif os.path.exists(FILE_PATH):
+    os.remove(FILE_PATH)
   del st.session_state.leagues
   st.rerun()
 
 st.header(f"🏆 {league_name}")
 
-# Hlavní záložky aplikace
+# Hlavní záložky
 tab1, tab2, tab3, tab4 = st.tabs(
     ["📊 Aktuální tabulka", "📅 Zápasy", "⚽ Střelci", "🛡️ Správa týmů"]
 )
 
-# 1. TABULKA (automaticky počítaná)
+# 1. TABULKA
 with tab1:
   st.subheader("Tabulka ligy")
   matches_df = current_league["matches"]
@@ -243,10 +318,9 @@ with tab1:
   standings_df.index += 1
   st.dataframe(standings_df, use_container_width=True)
 
-# 2. SPRÁVA ZÁPASŮ
+# 2. ZÁPASY
 with tab2:
   st.subheader("📅 Zapsat nový zápas")
-
   teams_list = current_league["teams"]
   if len(teams_list) >= 2:
     with st.form("add_match_form"):
@@ -279,7 +353,7 @@ with tab2:
               [current_league["matches"], new_row], ignore_index=True
           )
           save_data()
-          st.success("Zápas byl úspěšně zapsán!")
+          st.success("Zápas byl zapsán a uložen na GitHub!")
           st.rerun()
   else:
     st.warning("Pro zápis zápasů musíte mít v lize zadané alespoň 2 týmy.")
@@ -296,10 +370,9 @@ with tab2:
     current_league["matches"] = edited_matches
     save_data()
 
-# 3. SPRÁVA STŘELCŮ
+# 3. STŘELCI
 with tab3:
   st.subheader("⚽ Přidat střelce gólu")
-
   teams_list = current_league["teams"]
   if teams_list:
     with st.form("add_scorer_form"):
@@ -327,7 +400,7 @@ with tab3:
               [current_league["scorers"], new_scorer], ignore_index=True
           )
           save_data()
-          st.success(f"Hráč {player_name} byl přidán do tabulky střelců!")
+          st.success("Střelec byl přidán a uložen na GitHub!")
           st.rerun()
   else:
     st.warning("Nejprve přidejte týmy v záložce 'Správa týmů'.")
@@ -347,7 +420,6 @@ with tab3:
 # 4. SPRÁVA TÝMŮ
 with tab4:
   st.subheader("🛡️ Seznam týmů v lize")
-
   col_add, col_list = st.columns([1, 1])
 
   with col_add:
@@ -363,7 +435,7 @@ with tab4:
         else:
           current_league["teams"].append(new_team.strip())
           save_data()
-          st.success(f"Tým '{new_team}' byl přidán!")
+          st.success(f"Tým '{new_team}' byl přidán a uložen na GitHub!")
           st.rerun()
 
   with col_list:
