@@ -109,8 +109,38 @@ st.markdown(
     "Aplikace pro správu týmů, zápasů, střelců a automatický výpočet tabulek."
 )
 
-# Postranní panel pro výběr ligy
+# Postranní panel pro navigaci a správu lig
 st.sidebar.header("⚙️ Navigace")
+
+# 1. SEKCE PRO VYTVOŘENÍ NOVÉ LIGY
+with st.sidebar.expander("➕ Vytvořit novou ligu"):
+  new_league_name = st.text_input("Název ligy (např. Serie A)")
+  if st.button("Vytvořit ligu"):
+    league_clean = new_league_name.strip()
+    if league_clean:
+      if league_clean not in st.session_state.leagues:
+        st.session_state.leagues[league_clean] = {
+            "teams": [],
+            "matches": pd.DataFrame(
+                columns=[
+                    "Domácí",
+                    "Hosté",
+                    "Skóre Domácí",
+                    "Skóre Hosté",
+                    "Odehráno",
+                ]
+            ),
+            "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
+        }
+        save_data()
+        st.success(f"Liga '{league_clean}' byla vytvořena!")
+        st.rerun()
+      else:
+        st.error("Tato liga již existuje!")
+    else:
+      st.error("Zadejte název ligy!")
+
+# Výběr aktivní ligy
 league_name = st.sidebar.selectbox(
     "Vyberte ligu", list(st.session_state.leagues.keys())
 )
@@ -135,7 +165,6 @@ with tab1:
   matches_df = current_league["matches"]
   table_data = {}
 
-  # Inicializujeme všechny týmy v tabulce s 0
   for team in current_league["teams"]:
     table_data[team] = {
         "Zápasy": 0,
@@ -214,7 +243,7 @@ with tab1:
   standings_df.index += 1
   st.dataframe(standings_df, use_container_width=True)
 
-# 2. SPRÁVA ZÁPASŮ (S formulářem pro výběr týmů)
+# 2. SPRÁVA ZÁPASŮ
 with tab2:
   st.subheader("📅 Zapsat nový zápas")
 
@@ -343,7 +372,6 @@ with tab4:
       teams_df = pd.DataFrame({"Tým": current_league["teams"]})
       st.dataframe(teams_df, use_container_width=True, hide_index=True)
 
-      # Sekce pro smazání týmu
       st.markdown("---")
       team_to_delete = st.selectbox(
           "Vyberte tým k odstranění", current_league["teams"]
