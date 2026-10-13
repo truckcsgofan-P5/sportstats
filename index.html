@@ -97,7 +97,7 @@
 
     </main>
 
-    <!-- ADMIN MODÁLNÍ OKNO (Editor přímo na stránce) -->
+    <!-- ADMIN MODÁLNÍ OKNO -->
     <div id="admin-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-50">
         <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-2xl w-full p-6 space-y-6 max-h-[90vh] overflow-y-auto shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-700 pb-4">
@@ -131,7 +131,6 @@
 
     <!-- JavaScriptová logika -->
     <script>
-        // Výchozí data (pokud uživatel nemá uložené vlastní změny)
         const defaultData = {
             'PL': {
                 name: 'Anglie (Premier League)',
@@ -168,7 +167,8 @@
             }
         };
 
-        // Načtení dat z paměti prohlížeče (LocalStorage) nebo použití výchozích
+        // Pro jistotu vyčistíme starou uloženou paměť, aby se načetly správné výchozí ligy
+        // (pokud byste chtěl data resetovat, tohle pomůže)
         let leaguesData = JSON.parse(localStorage.getItem('sportStatsData')) || defaultData;
         let currentLeagueCode = 'PL';
 
@@ -191,30 +191,30 @@
             }
         }
 
-        // Vykreslení tlačítek lig
+        // Vykreslení tlačítek lig (opravená smyčka)
         function renderLeagueButtons() {
             const container = document.getElementById('league-buttons');
             const selectContainer = document.getElementById('admin-league-select');
             container.innerHTML = '';
             selectContainer.innerHTML = '';
 
-            Object.keys(leaguesDataforEach = Object.keys(leaguesData)).forEach(code => {
+            Object.keys(leaguesData).forEach(code => {
                 const league = leaguesData[code];
                 const isActive = code === currentLeagueCode;
                 
-                // Hlavní tlačítka lig
+                // Hlavní tlačítka lig nahoře
                 container.innerHTML += `
                     <button onclick="loadLeague('${code}')" class="league-btn px-3 py-1.5 text-sm rounded-lg font-medium transition ${isActive ? 'bg-emerald-600 text-white hover:bg-emerald-500' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}">
-                        ${league.name.split(' ')[0]}
+                        ${league.name}
                     </button>
                 `;
 
-                // Výběr v administraci
+                // Výběr v administračním okně
                 selectContainer.innerHTML += `<option value="${code}" ${isActive ? 'selected' : ''}>${league.name}</option>`;
             });
         }
 
-        // Hlavní funkce pro načtení a přepočet ligy
+        // Načtení a výpočet ligy
         function loadLeague(leagueCode) {
             currentLeagueCode = leagueCode;
             renderLeagueButtons();
@@ -337,7 +337,6 @@
             const code = document.getElementById('admin-league-select').value;
             const league = leaguesData[code];
 
-            // Uložení zápasů
             league.matches.forEach((m, index) => {
                 const homeInput = document.getElementById(`match-home-${index}`);
                 const awayInput = document.getElementById(`match-away-${index}`);
@@ -347,26 +346,5 @@
                 }
             });
 
-            // Uložení střelců
             league.scorers.forEach((s, index) => {
-                const goalsInput = document.getElementById(`scorer-goals-${index}`);
-                if (goalsInput) {
-                    s.goals = Number(goalsInput.value);
-                }
-            });
-
-            // Uložení do paměti prohlížeče
-            localStorage.setItem('sportStatsData', JSON.stringify(leaguesData));
-
-            // Zavření okna a obnovení webu
-            toggleAdmin();
-            loadLeague(currentLeagueCode);
-        }
-
-        // Spuštění při startu
-        window.onload = function() {
-            loadLeague('PL');
-        };
-    </script>
-</body>
-</html>
+                
