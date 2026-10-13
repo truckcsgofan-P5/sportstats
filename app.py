@@ -41,8 +41,6 @@ def get_default_data():
               "Chelsea",
               "Manchester United",
               "Tottenham",
-              "Newcastle",
-              "Aston Villa",
           ],
           "matches": pd.DataFrame([
               {
@@ -71,8 +69,6 @@ def get_default_data():
               "Barcelona",
               "Atletico Madrid",
               "Villarreal",
-              "Sevilla",
-              "Valencia",
           ],
           "matches": pd.DataFrame([
               {
@@ -108,10 +104,9 @@ def save_data():
 if "leagues" not in st.session_state:
   st.session_state.leagues = load_data()
 
-st.title("⚽🏒 SportStats - Trvalá správa lig a výsledků")
+st.title("⚽🏒 SportStats - Kompletní správa lig")
 st.markdown(
-    "Data se ukládají automaticky. Zápasy můžete pohodlně přidávat přes"
-    " formulář s výběrem týmů."
+    "Aplikace pro správu týmů, zápasů, střelců a automatický výpočet tabulek."
 )
 
 # Postranní panel pro výběr ligy
@@ -121,18 +116,6 @@ league_name = st.sidebar.selectbox(
 )
 current_league = st.session_state.leagues[league_name]
 
-# Správa týmů v postranním panelu
-with st.sidebar.expander("➕ Přidat nový tým do ligy"):
-  new_team_name = st.text_input("Název týmu")
-  if st.button("Přidat tým"):
-    if new_team_name and new_team_name not in current_league["teams"]:
-      current_league["teams"].append(new_team_name)
-      save_data()
-      st.success(f"Tým {new_team_name} byl přidán!")
-      st.rerun()
-    else:
-      st.error("Tým již existuje nebo je prázdný.")
-
 if st.sidebar.button("🔄 Resetovat vše do výchozího stavu"):
   if os.path.exists(DATA_FILE):
     os.remove(DATA_FILE)
@@ -141,8 +124,10 @@ if st.sidebar.button("🔄 Resetovat vše do výchozího stavu"):
 
 st.header(f"🏆 {league_name}")
 
-# Záložky v aplikaci
-tab1, tab2, tab3 = st.tabs(["📊 Aktuální tabulka", "📅 Zápasy", "⚽ Střelci"])
+# Hlavní záložky aplikace
+tab1, tab2, tab3, tab4 = st.tabs(
+    ["📊 Aktuální tabulka", "📅 Zápasy", "⚽ Střelci", "🛡️ Správa týmů"]
+)
 
 # 1. TABULKA (automaticky počítaná)
 with tab1:
@@ -150,7 +135,7 @@ with tab1:
   matches_df = current_league["matches"]
   table_data = {}
 
-  # Inicializujeme všechny týmy v tabulce s 0, aby byly vidět i ty, co ještě nehrály
+  # Inicializujeme všechny týmy v tabulce s 0
   for team in current_league["teams"]:
     table_data[team] = {
         "Zápasy": 0,
@@ -231,12 +216,12 @@ with tab1:
 
 # 2. SPRÁVA ZÁPASŮ (S formulářem pro výběr týmů)
 with tab2:
-  st.subheader("📅 Přidat nový zápas")
+  st.subheader("📅 Zapsat nový zápas")
 
   teams_list = current_league["teams"]
   if len(teams_list) >= 2:
     with st.form("add_match_form"):
-      col1, col2, col3, col4 = st.columns([3, 1, 1, 2])
+      col1, col2, col3, col4 = st.columns([3, 1, 1, 3])
       with col1:
         home_team = st.selectbox("Domácí tým", teams_list, index=0)
       with col2:
@@ -244,13 +229,12 @@ with tab2:
       with col3:
         away_score = st.number_input("Góly hosté", min_value=0, value=0, step=1)
       with col4:
-        # Vybereme druhý tým jako výchozí, pokud existuje
         default_away_idx = 1 if len(teams_list) > 1 else 0
         away_team = st.selectbox(
             "Hostující tým", teams_list, index=default_away_idx
         )
 
-      submitted = st.form_submit_button("➕ Zapsat zápas")
+      submitted = st.form_submit_button("➕ Přidat zápas do tabulky")
       if submitted:
         if home_team == away_team:
           st.error("Domácí a hostující tým nemůže být stejný!")
@@ -266,10 +250,10 @@ with tab2:
               [current_league["matches"], new_row], ignore_index=True
           )
           save_data()
-          st.success("Zápas byl úspěšně zapsán a tabulka se přepočítala!")
+          st.success("Zápas byl úspěšně zapsán!")
           st.rerun()
   else:
-    st.warning("Pro přidání zápasu musíte mít v lize zadané alespoň 2 týmy.")
+    st.warning("Pro zápis zápasů musíte mít v lize zadané alespoň 2 týmy.")
 
   st.divider()
   st.subheader("Seznam odehraných zápasů (možnost úpravy)")
@@ -285,9 +269,42 @@ with tab2:
 
 # 3. SPRÁVA STŘELCŮ
 with tab3:
-  st.subheader("⚽ Top střelci")
-  st.markdown("Zde můžete upravovat góly střelců nebo přidávat nové.")
+  st.subheader("⚽ Přidat střelce gólu")
 
+  teams_list = current_league["teams"]
+  if teams_list:
+    with st.form("add_scorer_form"):
+      col1, col2, col3 = st.columns([2, 2, 1])
+      with col1:
+        player_name = st.text_input("Jméno hráče")
+      with col2:
+        player_team = st.selectbox("Tým hráče", teams_list)
+      with col3:
+        player_goals = st.number_input(
+            "Počet gólů", min_value=1, value=1, step=1
+        )
+
+      scorer_submitted = st.form_submit_button("➕ Přidat střelce")
+      if scorer_submitted:
+        if not player_name.strip():
+          st.error("Zadejte jméno hráče!")
+        else:
+          new_scorer = pd.DataFrame([{
+              "Hráč": player_name.strip(),
+              "Tým": player_team,
+              "Góly": int(player_goals),
+          }])
+          current_league["scorers"] = pd.concat(
+              [current_league["scorers"], new_scorer], ignore_index=True
+          )
+          save_data()
+          st.success(f"Hráč {player_name} byl přidán do tabulky střelců!")
+          st.rerun()
+  else:
+    st.warning("Nejprve přidejte týmy v záložce 'Správa týmů'.")
+
+  st.divider()
+  st.subheader("Žebříček střelců (možnost úpravy)")
   edited_scorers = st.data_editor(
       current_league["scorers"],
       num_rows="dynamic",
@@ -297,3 +314,44 @@ with tab3:
   if not current_league["scorers"].equals(edited_scorers):
     current_league["scorers"] = edited_scorers
     save_data()
+
+# 4. SPRÁVA TÝMŮ
+with tab4:
+  st.subheader("🛡️ Seznam týmů v lize")
+
+  col_add, col_list = st.columns([1, 1])
+
+  with col_add:
+    st.markdown("**Přidat nový tým:**")
+    with st.form("add_team_form"):
+      new_team = st.text_input("Název nového týmu")
+      add_team_btn = st.form_submit_button("Přidat tým")
+      if add_team_btn:
+        if not new_team.strip():
+          st.error("Název týmu nemůže být prázdný!")
+        elif new_team in current_league["teams"]:
+          st.error("Tento tým již v lize existuje!")
+        else:
+          current_league["teams"].append(new_team.strip())
+          save_data()
+          st.success(f"Tým '{new_team}' byl přidán!")
+          st.rerun()
+
+  with col_list:
+    st.markdown("**Aktuální týmy:**")
+    if current_league["teams"]:
+      teams_df = pd.DataFrame({"Tým": current_league["teams"]})
+      st.dataframe(teams_df, use_container_width=True, hide_index=True)
+
+      # Sekce pro smazání týmu
+      st.markdown("---")
+      team_to_delete = st.selectbox(
+          "Vyberte tým k odstranění", current_league["teams"]
+      )
+      if st.button("🗑️ Smazat vybraný tým", type="primary"):
+        current_league["teams"].remove(team_to_delete)
+        save_data()
+        st.success(f"Tým '{team_to_delete}' byl smazán.")
+        st.rerun()
+    else:
+      st.info("V lize nejsou žádné týmy.")
