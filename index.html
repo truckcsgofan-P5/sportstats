@@ -30,60 +30,136 @@
             <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-2 items-center justify-between">
                 <span class="text-slate-400 font-semibold text-sm">Vyberte ligu:</span>
                 <div class="flex flex-wrap gap-2">
-                    <button onclick="switchLeague('premier-league', 'Premier League', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie (PL)</button>
-                    <button onclick="switchLeague('la-liga', 'La Liga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
-                    <button onclick="switchLeague('bundesliga', 'Bundesliga', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
+                    <button onclick="loadLeague('PL', 'Anglie (Premier League)', this)" class="league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500">Anglie</button>
+                    <button onclick="loadLeague('PD', 'Španělsko (La Liga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Španělsko</button>
+                    <button onclick="loadLeague('BL1', 'Německo (Bundesliga)', this)" class="league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600">Německo</button>
                 </div>
             </div>
 
-            <!-- Živý widget pro výsledky a tabulku -->
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-emerald-400" id="widget-title">Živé výsledky & Zápasy: Premier League</h2>
-                    <span class="text-xs bg-emerald-900/50 text-emerald-300 px-2.5 py-1 rounded-full border border-emerald-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Živá data
-                    </span>
-                </div>
+            <!-- Název aktivní ligy -->
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-emerald-400" id="league-title">Anglie (Premier League)</h2>
+            </div>
+
+            <!-- Dva sloupce: Zápasy a Tabulka -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
-                <!-- Kontejner pro widget -->
-                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[550px]">
-                    <!-- Premier League Widget -->
-                    <div id="widget-premier-league" class="league-widget">
-                        <iframe src="https://www.flashscore.cz/standings/z8DohTUn/table/" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
-                    </div>
-                    <!-- La Liga Widget -->
-                    <div id="widget-la-liga" class="league-widget hidden">
-                        <iframe src="https://www.flashscore.cz/standings/l0X24Z5p/table/" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
-                    </div>
-                    <!-- Bundesliga Widget -->
-                    <div id="widget-bundesliga" class="league-widget hidden">
-                        <iframe src="https://www.flashscore.cz/standings/24W3W42n/table/" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
+                <!-- Zápasy -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-lg font-bold text-emerald-400 mb-4">📅 Výsledky & Zápasy</h3>
+                    <div id="matches-container" class="space-y-3">
+                        <!-- Sem se vygenerují zápasy -->
                     </div>
                 </div>
+
+                <!-- Automaticky počítaná tabulka -->
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <h3 class="text-lg font-bold text-emerald-400 mb-4">🏆 Tabulka ligy</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="border-b border-slate-700 text-slate-400">
+                                    <th class="py-2">Tým</th>
+                                    <th class="py-2 text-center">Z</th>
+                                    <th class="py-2 text-center">Skóre</th>
+                                    <th class="py-2 text-right">Body</th>
+                                </tr>
+                            </thead>
+                            <tbody id="standings-container" class="divide-y divide-slate-700">
+                                <!-- Sem se vygeneruje tabulka -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Top střelci pro danou ligu -->
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h3 class="text-lg font-bold text-emerald-400 mb-4">⚽ Top střelci</h3>
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-700 text-slate-400">
+                            <th class="py-2">Hráč</th>
+                            <th class="py-2">Tým</th>
+                            <th class="py-2 text-right">Góly</th>
+                        </tr>
+                    </thead>
+                    <tbody id="scorers-container" class="divide-y divide-slate-700">
+                        <!-- Sem se vygenerují střelci -->
+                    </tbody>
+                </table>
             </div>
         </section>
 
         <!-- HOKEJOVÁ SEKCE -->
         <section id="sec-hokej" class="space-y-8 hidden">
-            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 shadow-xl">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold text-cyan-400">Živé výsledky & Tabulka: NHL (Hokej)</h2>
-                    <span class="text-xs bg-cyan-900/50 text-cyan-300 px-2.5 py-1 rounded-full border border-cyan-700 flex items-center gap-1.5">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Živá data NHL
-                    </span>
-                </div>
-                
-                <!-- Hokejový widget -->
-                <div class="w-full overflow-hidden rounded-lg bg-slate-900 p-2 min-h-[550px]">
-                    <iframe src="https://www.flashscore.cz/standings/GtrUSV6p/table/" style="height:550px; width:100%; border:0;" scrolling="yes"></iframe>
+            <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                <h2 class="text-2xl font-bold text-cyan-400 mb-4">NHL (Hokej)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-slate-900 p-4 rounded-lg">
+                        <h3 class="text-md font-bold text-cyan-400 mb-3">📅 Poslední zápasy</h3>
+                        <div class="space-y-2 text-sm text-slate-300">
+                            <div class="p-2 bg-slate-800 rounded flex justify-between"><span>Edmonton vs Calgary</span><strong>4 : 2</strong></div>
+                            <div class="p-2 bg-slate-800 rounded flex justify-between"><span>Boston vs Toronto</span><strong>3 : 1</strong></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded-lg">
+                        <h3 class="text-md font-bold text-cyan-400 mb-3">⭐ Kanadské bodování</h3>
+                        <div class="space-y-2 text-sm text-slate-300">
+                            <div class="p-2 bg-slate-800 rounded flex justify-between"><span>Connor McDavid (Edmonton)</span><strong>92 bodů</strong></div>
+                            <div class="p-2 bg-slate-800 rounded flex justify-between"><span>Nathan MacKinnon (Colorado)</span><strong>88 bodů</strong></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- JavaScript pro přepínání -->
+    <!-- JavaScriptová logika pro výpočet tabulek -->
     <script>
+        // Zde si jednoduše doplňujete zápasy a střelce pro každou ligu zvlášť
+        const leaguesData = {
+            'PL': {
+                name: 'Anglie (Premier League)',
+                matches: [
+                    { home: 'Manchester City', away: 'Arsenal', homeScore: 2, awayScore: 2, status: 'Konec' },
+                    { home: 'Liverpool', away: 'Chelsea', homeScore: 3, awayScore: 1, status: 'Konec' },
+                    { home: 'Manchester United', away: 'Tottenham', homeScore: 1, awayScore: 0, status: 'Konec' },
+                    { home: 'Newcastle', away: 'Aston Villa', homeScore: 2, awayScore: 2, status: 'Konec' }
+                ],
+                scorers: [
+                    { name: 'Erling Haaland', team: 'Manchester City', goals: 10 },
+                    { name: 'Cole Palmer', team: 'Chelsea', goals: 7 },
+                    { name: 'Mohamed Salah', team: 'Liverpool', goals: 6 }
+                ]
+            },
+            'PD': {
+                name: 'Španělsko (La Liga)',
+                matches: [
+                    { home: 'Real Madrid', away: 'Barcelona', homeScore: 2, awayScore: 1, status: 'Konec' },
+                    { home: 'Atletico Madrid', away: 'Villarreal', homeScore: 3, awayScore: 0, status: 'Konec' },
+                    { home: 'Sevilla', away: 'Valencia', homeScore: 1, awayScore: 1, status: 'Konec' }
+                ],
+                scorers: [
+                    { name: 'Kylian Mbappé', team: 'Real Madrid', goals: 9 },
+                    { name: 'Robert Lewandowski', team: 'Barcelona', goals: 8 }
+                ]
+            },
+            'BL1': {
+                name: 'Německo (Bundesliga)',
+                matches: [
+                    { home: 'Bayern München', away: 'Dortmund', homeScore: 3, awayScore: 2, status: 'Konec' },
+                    { home: 'RB Leipzig', away: 'Leverkusen', homeScore: 1, awayScore: 1, status: 'Konec' }
+                ],
+                scorers: [
+                    { name: 'Harry Kane', team: 'Bayern München', goals: 11 },
+                    { name: 'Serhou Guirassy', team: 'Dortmund', goals: 7 }
+                ]
+            }
+        };
+
         function switchTab(sport) {
             const fotbalSec = document.getElementById('sec-fotbal');
             const hokejSec = document.getElementById('sec-hokej');
@@ -103,19 +179,90 @@
             }
         }
 
-        function switchLeague(leagueCode, leagueName, buttonElement) {
+        // Funkce pro výpočet tabulky a vykreslení ligy
+        function loadLeague(leagueCode, leagueName, buttonElement) {
             document.querySelectorAll('.league-btn').forEach(btn => {
                 btn.className = "league-btn px-3 py-1.5 bg-slate-700 text-sm rounded-lg font-medium transition hover:bg-slate-600";
             });
             buttonElement.className = "league-btn px-3 py-1.5 bg-emerald-600 text-sm rounded-lg font-medium transition hover:bg-emerald-500";
 
-            document.getElementById('widget-title').innerText = `Živé výsledky & Zápasy: ${leagueName}`;
+            document.getElementById('league-title').innerText = leagueName;
+            
+            const league = leaguesData[leagueCode];
 
-            document.querySelectorAll('.league-widget').forEach(widget => {
-                widget.classList.add('hidden');
+            // 1. Vykreslení zápasů
+            const matchesContainer = document.getElementById('matches-container');
+            matchesContainer.innerHTML = '';
+            league.matches.forEach(m => {
+                matchesContainer.innerHTML += `
+                    <div class="p-3 bg-slate-700/50 rounded-lg flex justify-between items-center text-sm">
+                        <span class="text-slate-200">${m.home} vs ${m.away}</span>
+                        <span class="font-bold text-emerald-400 bg-slate-900 px-2.5 py-1 rounded">${m.homeScore} : ${m.awayScore}</span>
+                    </div>
+                `;
             });
-            document.getElementById(`widget-${leagueCode}`).classList.remove('hidden');
+
+            // 2. Výpočet tabulky z výsledků zápasů
+            const tableData = {};
+            league.matches.forEach(m => {
+                if (!tableData[m.home]) tableData[m.home] = { played: 0, pts: 0, gf: 0, ga: 0 };
+                if (!tableData[m.away]) tableData[m.away] = { played: 0, pts: 0, gf: 0, ga: 0 };
+
+                tableData[m.home].played++;
+                tableData[m.away].played++;
+
+                tableData[m.home].gf += m.homeScore;
+                tableData[m.home].ga += m.awayScore;
+                tableData[m.away].gf += m.awayScore;
+                tableData[m.away].ga += m.homeScore;
+
+                if (m.homeScore > m.awayScore) {
+                    tableData[m.home].pts += 3;
+                } else if (m.homeScore < m.awayScore) {
+                    tableData[m.away].pts += 3;
+                } else {
+                    tableData[m.home].pts += 1;
+                    tableData[m.away].pts += 1;
+                }
+            });
+
+            // Převedení na pole a seřazení podle bodů a skóre
+            const sortedTable = Object.keys(tableData).map(team => {
+                return { team, ...tableData[team], gd: tableData[team].gf - tableData[team].ga };
+            }).sort((a, b) => b.pts - a.pts || b.gd - a.gd);
+
+            // Vykreslení tabulky
+            const standingsContainer = document.getElementById('standings-container');
+            standingsContainer.innerHTML = '';
+            sortedTable.forEach(row => {
+                standingsContainer.innerHTML += `
+                    <tr>
+                        <td class="py-2.5 font-medium text-slate-200">${row.team}</td>
+                        <td class="py-2.5 text-center text-slate-400">${row.played}</td>
+                        <td class="py-2.5 text-center text-slate-400">${row.gf}:${row.ga}</td>
+                        <td class="py-2.5 text-right font-bold text-emerald-400">${row.pts}</td>
+                    </tr>
+                `;
+            });
+
+            // 3. Vykreslení střelců
+            const scorersContainer = document.getElementById('scorers-container');
+            scorersContainer.innerHTML = '';
+            league.scorers.forEach(s => {
+                scorersContainer.innerHTML += `
+                    <tr>
+                        <td class="py-2.5 font-medium text-slate-200">${s.name}</td>
+                        <td class="py-2.5 text-slate-400">${s.team}</td>
+                        <td class="py-2.5 text-right font-bold text-emerald-400">${s.goals}</td>
+                    </tr>
+                `;
+            });
         }
+
+        // Spuštění při startu
+        window.onload = function() {
+            loadLeague('PL', 'Anglie (Premier League)', document.querySelector('.league-btn'));
+        };
     </script>
 </body>
 </html>
