@@ -167,9 +167,8 @@
             }
         };
 
-        // Pro jistotu vyčistíme starou uloženou paměť, aby se načetly správné výchozí ligy
-        // (pokud byste chtěl data resetovat, tohle pomůže)
-        let leaguesData = JSON.parse(localStorage.getItem('sportStatsData')) || defaultData;
+        // Zde zajistíme, že se stará paměť ignoruje a načtou se čerstvá data
+        let leaguesData = defaultData;
         let currentLeagueCode = 'PL';
 
         function switchTab(sport) {
@@ -191,10 +190,13 @@
             }
         }
 
-        // Vykreslení tlačítek lig (opravená smyčka)
+        // Vykreslení tlačítek lig
         function renderLeagueButtons() {
             const container = document.getElementById('league-buttons');
             const selectContainer = document.getElementById('admin-league-select');
+            
+            if (!container || !selectContainer) return;
+
             container.innerHTML = '';
             selectContainer.innerHTML = '';
 
@@ -220,6 +222,8 @@
             renderLeagueButtons();
 
             const league = leaguesData[leagueCode];
+            if (!league) return;
+
             document.getElementById('league-title').innerText = league.name;
 
             // 1. Zápasy
@@ -303,7 +307,6 @@
             const code = document.getElementById('admin-league-select').value;
             const league = leaguesData[code];
 
-            // Editor zápasů
             const matchesDiv = document.getElementById('admin-matches-editor');
             matchesDiv.innerHTML = '';
             league.matches.forEach((m, index) => {
@@ -319,7 +322,6 @@
                 `;
             });
 
-            // Editor střelců
             const scorersDiv = document.getElementById('admin-scorers-editor');
             scorersDiv.innerHTML = '';
             league.scorers.forEach((s, index) => {
@@ -347,4 +349,20 @@
             });
 
             league.scorers.forEach((s, index) => {
-                
+                const goalsInput = document.getElementById(`scorer-goals-${index}`);
+                if (goalsInput) {
+                    s.goals = Number(goalsInput.value);
+                }
+            });
+
+            toggleAdmin();
+            loadLeague(currentLeagueCode);
+        }
+
+        // Spuštění při startu
+        window.onload = function() {
+            loadLeague('PL');
+        };
+    </script>
+</body>
+</html>
