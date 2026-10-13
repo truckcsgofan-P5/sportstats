@@ -75,7 +75,7 @@ league_name = st.sidebar.selectbox(
 )
 current_league = st.session_state.leagues[league_name]
 
-# Tlačítko pro reset dat (pokud by se tabulka rozbila)
+# Tlačítko pro reset dat
 if st.sidebar.button("🔄 Resetovat data ligy"):
   del st.session_state.leagues
   st.rerun()
@@ -91,7 +91,6 @@ with tab1:
   matches_df = current_league["matches"]
   table_data = {}
 
-  # Bezpečnostní kontrola sloupců
   required_cols = {"Domácí", "Hosté", "Skóre Domácí", "Skóre Hosté"}
   if not required_cols.issubset(matches_df.columns):
     st.error(
@@ -107,7 +106,7 @@ with tab1:
           hs = int(row["Skóre Domácí"])
           as_ = int(row["Skóre Hosté"])
         except (ValueError, TypeError):
-          continue  # Přeskočí neplatné hodnoty
+          continue
 
         for team in [home, away]:
           if team not in table_data:
@@ -155,10 +154,15 @@ with tab1:
             "Skóre": f"{stats['Vstřelené']}:{stats['Obdržené']}",
             "GD": gd,
             "Body": stats["Body"],
+            "Vstřelené": stats[
+                "Vstřelené"
+            ],  # Opraveno: přidáno pro správné řazení
         })
+      # Seřadíme a následně odstraníme pomocný sloupec Vstřelené, aby nebyl v tabulce navíc
       standings_df = pd.DataFrame(standings_list).sort_values(
           by=["Body", "GD", "Vstřelené"], ascending=False
       )
+      standings_df = standings_df.drop(columns=["Vstřelené"])
       standings_df.reset_index(drop=True, inplace=True)
       standings_df.index += 1
       st.dataframe(standings_df, use_container_width=True)
