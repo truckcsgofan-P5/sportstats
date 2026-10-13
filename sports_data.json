@@ -32,15 +32,7 @@
             "Atletico Madrid",
             "Villarreal"
         ],
-        "matches": [
-            {
-                "Domácí": "Real Madrid",
-                "Hosté": "Barcelona",
-                "Skóre Domácí": 2,
-                "Skóre Hosté": 1,
-                "Odehráno": true
-            }
-        ],
+        "matches": [],
         "scorers": [
             {
                 "Hráč": "Kylian Mbappé",
