@@ -74,13 +74,14 @@ def get_default_data():
   }
 
 
-# Funkce pro načtení dat
-def load_data():
+# Funkce pro načtení dat (s hlášením chyb)
+def load_data(show_messages=False):
   if HAS_GITHUB:
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
         "Authorization": f"token {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json",
+        "Cache-Control": "no-cache",
     }
     try:
       response = requests.get(url, headers=headers)
@@ -96,10 +97,29 @@ def load_data():
               "matches": pd.DataFrame(content["matches"]),
               "scorers": pd.DataFrame(content["scorers"]),
           }
+        if show_messages:
+          st.success("Data byla úspěšně stažena z GitHubu!")
         return loaded
-    except Exception:
-      pass
+      elif response.status_code == 404:
+        if show_messages:
+          st.warning(
+              "Soubor `sports_data.json` ještě na GitHubu neexistuje. Jakmile"
+              " cokoliv v aplikaci uložite, automaticky se vytvoří."
+          )
+      else:
+        if show_messages:
+          st.error(
+              f"Chyba při komunikaci s GitHubem (Kód: {response.status_code})."
+              " Zkontrolujte token."
+          )
+    except Exception as e:
+      if show_messages:
+        st.error(f"Nastala výjimka: {e}")
   else:
+    if show_messages:
+      st.warning(
+          "Není nastaveno GitHub API v Secrets, používá se lokální režim."
+      )
     if os.path.exists(FILE_PATH):
       try:
         with open(FILE_PATH, "r", encoding="utf-8") as f:
@@ -111,9 +131,13 @@ def load_data():
               "matches": pd.DataFrame(content["matches"]),
               "scorers": pd.DataFrame(content["scorers"]),
           }
+        if show_messages:
+          st.success("Data načtena z lokálního souboru!")
         return loaded
-      except Exception:
-        pass
+      except Exception as e:
+        if show_messages:
+          st.error(f"Chyba při čtení lokálního souboru: {e}")
+
   return get_default_data()
 
 
@@ -145,13 +169,15 @@ def save_data():
       sha = get_resp.json().get("sha")
 
     payload = {
-        "message": "Automatická aktualizace sportovních dat přes aplikaci",
+        "message": "Aktualizace dat přes aplikaci",
         "content": encoded_content,
     }
     if sha:
       payload["sha"] = sha
 
-    requests.put(url, headers=headers, json=payload)
+    put_resp = requests.put(url, headers=headers, json=payload)
+    if put_resp.status_code not in [200, 201]:
+      st.error(f"Chyba při ukládání na GitHub: {put_resp.status_code}")
   else:
     with open(FILE_PATH, "w", encoding="utf-8") as f:
       json.dump(data_to_save, f, ensure_ascii=False, indent=4)
@@ -159,20 +185,17 @@ def save_data():
 
 # Inicializace stavu
 if "leagues" not in st.session_state:
-  st.session_state.leagues = load_data()
+  st.session_state.leagues = load_data(show_messages=False)
 
 st.title("⚽🏒 SportStats - Správa lig")
-st.markdown(
-    "Aplikace pro správu týmů, zápasů a střelců s ukládáním na GitHub."
-)
+st.markdown("Aplikace pro správu týmů, zápasů a střelců.")
 
 # Postranní panel
 st.sidebar.header("⚙️ Navigace")
 
-# Tlačítko pro manuální načtení změn ze souboru
+# Tlačítko pro manuální načtení
 if st.sidebar.button("🔄 Načíst aktuální data ze souboru"):
-  st.session_state.leagues = load_data()
-  st.success("Data byla úspěšně načtena ze souboru!")
+  st.session_state.leagues = load_data(show_messages=True)
   st.rerun()
 
 with st.sidebar.expander("➕ Vytvořit novou ligu"):
@@ -195,7 +218,7 @@ with st.sidebar.expander("➕ Vytvořit novou ligu"):
             "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
         }
         save_data()
-        st.success(f"Liga '{league_clean}' byla vytvořena!")
+        st.success(f"Liga '{league_clean}' byla vytvořena a uložena!")
         st.rerun()
       else:
         st.error("Tato liga již existuje!")
