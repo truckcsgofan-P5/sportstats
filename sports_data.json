@@ -22,7 +22,15 @@
             "Bournemouth",
             "Fulham"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Arsenal",
+                "Hosté": "Coventry",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
+            }
+        ],
         "scorers": [
             {
                 "Hráč": "Erling Haaland",
