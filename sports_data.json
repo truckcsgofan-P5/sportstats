@@ -7,32 +7,34 @@
             "Chelsea",
             "Manchester United",
             "Tottenham",
-            "Fulham",
-            "Coventry",
-            "Newcastle"
-            "Aston Villa"
-            "Brighton"
-            "Brentford"
             "Sunderland"
-            "Ipswich"
-            "Hull"
-            "Leeds"
-            "Everton"
-            "Nottingham"
-            "Bournemounth"
-            "Crystal Palace"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Manchester City",
+                "Hosté": "Arsenal",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
+            },
+            {
+                "Domácí": "Liverpool",
+                "Hosté": "Chelsea",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
+            }
+        ],
         "scorers": [
             {
                 "Hráč": "Erling Haaland",
                 "Tým": "Manchester City",
-                "Góly": 0
+                "Góly": 10
             },
             {
                 "Hráč": "Cole Palmer",
                 "Tým": "Chelsea",
-                "Góly": 0
+                "Góly": 7
             }
         ]
     },
@@ -43,7 +45,15 @@
             "Atletico Madrid",
             "Villarreal"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Real Madrid",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
+            }
+        ],
         "scorers": [
             {
                 "Hráč": "Kylian Mbappé",
