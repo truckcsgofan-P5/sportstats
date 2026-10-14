@@ -165,7 +165,9 @@
         ]
     },
     "Ligue 1 (Francie)": {
-        "teams": [],
+        "teams": [
+            "Nice"
+        ],
         "matches": [],
         "scorers": []
     }
