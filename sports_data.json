@@ -166,7 +166,8 @@
     },
     "Ligue 1 (Francie)": {
         "teams": [
-            "Nice"
+            "Nice",
+            "Rennes"
         ],
         "matches": [],
         "scorers": []
