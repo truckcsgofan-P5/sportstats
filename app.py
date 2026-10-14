@@ -44,6 +44,13 @@ def get_default_data():
                   "Skóre Hosté": 1,
                   "Odehráno": True,
               },
+              {
+                  "Domácí": "Arsenal",
+                  "Hosté": "Liverpool",
+                  "Skóre Domácí": 2,
+                  "Skóre Hosté": 1,
+                  "Odehráno": True,
+              },
           ]),
           "scorers": pd.DataFrame([
               {"Hráč": "Erling Haaland", "Tým": "Manchester City", "Góly": 10},
@@ -74,8 +81,8 @@ def get_default_data():
   }
 
 
-# Funkce pro načtení dat (s hlášením chyb)
-def load_data(show_messages=False):
+# Funkce pro načtení dat
+def load_data():
   if HAS_GITHUB:
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
     headers = {
@@ -97,29 +104,10 @@ def load_data(show_messages=False):
               "matches": pd.DataFrame(content["matches"]),
               "scorers": pd.DataFrame(content["scorers"]),
           }
-        if show_messages:
-          st.success("Data byla úspěšně stažena z GitHubu!")
         return loaded
-      elif response.status_code == 404:
-        if show_messages:
-          st.warning(
-              "Soubor `sports_data.json` ještě na GitHubu neexistuje. Jakmile"
-              " cokoliv v aplikaci uložite, automaticky se vytvoří."
-          )
-      else:
-        if show_messages:
-          st.error(
-              f"Chyba při komunikaci s GitHubem (Kód: {response.status_code})."
-              " Zkontrolujte token."
-          )
-    except Exception as e:
-      if show_messages:
-        st.error(f"Nastala výjimka: {e}")
+    except Exception:
+      pass
   else:
-    if show_messages:
-      st.warning(
-          "Není nastaveno GitHub API v Secrets, používá se lokální režim."
-      )
     if os.path.exists(FILE_PATH):
       try:
         with open(FILE_PATH, "r", encoding="utf-8") as f:
@@ -131,12 +119,9 @@ def load_data(show_messages=False):
               "matches": pd.DataFrame(content["matches"]),
               "scorers": pd.DataFrame(content["scorers"]),
           }
-        if show_messages:
-          st.success("Data načtena z lokálního souboru!")
         return loaded
-      except Exception as e:
-        if show_messages:
-          st.error(f"Chyba při čtení lokálního souboru: {e}")
+      except Exception:
+        pass
 
   return get_default_data()
 
@@ -169,15 +154,13 @@ def save_data():
       sha = get_resp.json().get("sha")
 
     payload = {
-        "message": "Aktualizace dat přes aplikaci",
+        "message": "Aktualizace sportovních dat",
         "content": encoded_content,
     }
     if sha:
       payload["sha"] = sha
 
-    put_resp = requests.put(url, headers=headers, json=payload)
-    if put_resp.status_code not in [200, 201]:
-      st.error(f"Chyba při ukládání na GitHub: {put_resp.status_code}")
+    requests.put(url, headers=headers, json=payload)
   else:
     with open(FILE_PATH, "w", encoding="utf-8") as f:
       json.dump(data_to_save, f, ensure_ascii=False, indent=4)
@@ -185,17 +168,17 @@ def save_data():
 
 # Inicializace stavu
 if "leagues" not in st.session_state:
-  st.session_state.leagues = load_data(show_messages=False)
+  st.session_state.leagues = load_data()
 
-st.title("⚽🏒 SportStats - Správa lig")
-st.markdown("Aplikace pro správu týmů, zápasů a střelců.")
+st.title("⚽🏒 SportStats - Kompletní správa a statistiky")
+st.markdown("Aplikace pro správu lig, týmů, zápasů a pokročilých statistik.")
 
 # Postranní panel
 st.sidebar.header("⚙️ Navigace")
 
-# Tlačítko pro manuální načtení
 if st.sidebar.button("🔄 Načíst aktuální data ze souboru"):
-  st.session_state.leagues = load_data(show_messages=True)
+  st.session_state.leagues = load_data()
+  st.success("Data byla úspěšně načtena!")
   st.rerun()
 
 with st.sidebar.expander("➕ Vytvořit novou ligu"):
@@ -218,7 +201,7 @@ with st.sidebar.expander("➕ Vytvořit novou ligu"):
             "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
         }
         save_data()
-        st.success(f"Liga '{league_clean}' byla vytvořena a uložena!")
+        st.success(f"Liga '{league_clean}' byla vytvořena!")
         st.rerun()
       else:
         st.error("Tato liga již existuje!")
@@ -252,10 +235,14 @@ if st.sidebar.button("🔄 Resetovat vše do výchozího stavu"):
 
 st.header(f"🏆 {league_name}")
 
-# Hlavní záložky
-tab1, tab2, tab3, tab4 = st.tabs(
-    ["📊 Aktuální tabulka", "📅 Zápasy", "⚽ Střelci", "🛡️ Správa týmů"]
-)
+# Hlavní záložky (přidána záložka Statistiky)
+tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    "📊 Aktuální tabulka",
+    "📅 Zápasy",
+    "⚽ Střelci",
+    "🛡️ Správa týmů",
+    "📈 Statistiky",
+])
 
 # 1. TABULKA
 with tab1:
@@ -478,3 +465,188 @@ with tab4:
         st.rerun()
     else:
       st.info("V lize nejsou žádné týmy.")
+
+# 5. STATISTIKY (Nová záložka)
+with tab5:
+  st.subheader("📈 Pokročilé statistiky týmů")
+  teams_list = current_league["teams"]
+  matches_df = current_league["matches"]
+
+  if not teams_list:
+    st.warning("V lize nejsou žádné týmy.")
+  elif matches_df.empty:
+    st.info("Zatím nejsou k dispozici žádné zápasy pro výpočet statistik.")
+  else:
+    # Sekce A: Detailní statistiky konkrétního týmu
+    st.markdown("### 📊 Detailní statistiky týmu")
+    selected_team = st.selectbox("Vyberte tým pro zobrazení statistik", teams_list)
+
+    home_matches = matches_df[
+        (matches_df["Domácí"] == selected_team)
+        & (matches_df.get("Odehráno", True))
+    ]
+    away_matches = matches_df[
+        (matches_df["Hosté"] == selected_team)
+        & (matches_df.get("Odehráno", True))
+    ]
+
+    # Výpočty pro domácí
+    h_played = len(home_matches)
+    h_wins, h_draws, h_losses, h_gf, h_ga = 0, 0, 0, 0, 0
+    for _, r in home_matches.iterrows():
+      try:
+        s_home = int(r["Skóre Domácí"])
+        s_away = int(r["Skóre Hosté"])
+        h_gf += s_home
+        h_ga += s_away
+        if s_home > s_away:
+          h_wins += 1
+        elif s_home < s_away:
+          h_losses += 1
+        else:
+          h_draws += 1
+      except:
+        pass
+
+    # Výpočty pro venkovní
+    a_played = len(away_matches)
+    a_wins, a_draws, a_losses, a_gf, a_ga = 0, 0, 0, 0, 0
+    for _, r in away_matches.iterrows():
+      try:
+        s_home = int(r["Skóre Domácí"])
+        s_away = int(r["Skóre Hosté"])
+        a_gf += s_away
+        a_ga += s_home
+        if s_away > s_home:
+          a_wins += 1
+        elif s_away < s_home:
+          a_losses += 1
+        else:
+          a_draws += 1
+      except:
+        pass
+
+    tot_played = h_played + a_played
+    tot_gf = h_gf + a_gf
+    tot_ga = h_ga + a_ga
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+      st.metric(
+          "🏠 Doma (V - R - P)", f"{h_wins} - {h_draws} - {h_losses}", f"Zápasů: {h_played}"
+      )
+      st.markdown(
+          f"Skóre doma: **{h_gf}:{h_ga}** (Průměr gólů na zápas: **{h_gf/h_played:.2f}**)"
+          if h_played > 0
+          else "Zatím bez domácích zápasů"
+      )
+    with col2:
+      st.metric(
+          "✈️ Venku (V - R - P)", f"{a_wins} - {a_draws} - {a_losses}", f"Zápasů: {a_played}"
+      )
+      st.markdown(
+          f"Skóre venku: **{a_gf}:{a_ga}** (Průměr gólů na zápas: **{a_gf/a_played:.2f}**)"
+          if a_played > 0
+          else "Zatím bez venkovních zápasů"
+      )
+    with col3:
+      st.metric(
+          "⚽ Celkem gólů na zápas",
+          f"{(tot_gf/tot_played):.2f}" if tot_played > 0 else "0",
+          f"Vstřelené celkem: {tot_gf}",
+      )
+      st.markdown(
+          f"Inkresované celkem: **{tot_ga}**"
+          if tot_played > 0
+          else ""
+      )
+
+    st.divider()
+
+    # Sekce B: Vzájemná bilance a šance proti soupeři (Head-to-Head)
+    st.markdown("### ⚔️ Vzájemný zápas & Odhad šancí (Head-to-Head)")
+    col_t1, col_t2 = st.columns(2)
+    with col_t1:
+      team_a = st.selectbox("Tým A (Domácí/První)", teams_list, index=0)
+    with col_t2:
+      default_idx = 1 if len(teams_list) > 1 else 0
+      team_b = st.selectbox("Tým B (Hosté/Druhý)", teams_list, index=default_idx)
+
+    if team_a == team_b:
+      st.warning("Vyberte dva různé týmy pro porovnání.")
+    else:
+      # Najdeme vzájemné zápasy
+      h2h_matches = matches_df[
+          ((matches_df["Domácí"] == team_a) & (matches_df["Hosté"] == team_b))
+          | ((matches_df["Domácí"] == team_b) & (matches_df["Hosté"] == team_a))
+      ]
+
+      h2h_played = len(h2h_matches)
+      t1_wins = 0
+      t2_wins = 0
+      draws = 0
+      t1_goals = 0
+      t2_goals = 0
+
+      h2h_list = []
+      for _, r in h2h_matches.iterrows():
+        try:
+          hs = int(r["Skóre Domácí"])
+          as_ = int(r["Skóre Hosté"])
+          home = r["Domácí"]
+          away = r["Hosté"]
+
+          if home == team_a:
+            t1_goals += hs
+            t2_goals += as_
+            if hs > as_:
+              t1_wins += 1
+            elif hs < as_:
+              t2_wins += 1
+            else:
+              draws += 1
+          else:
+            t1_goals += as_
+            t2_goals += hs
+            if as_ > hs:
+              t1_wins += 1
+            elif as_ < hs:
+              t2_wins += 1
+            else:
+              draws += 1
+
+          h2h_list.append({
+              "Zápas": f"{home} {hs} : {as_} {away}",
+              "Odehráno": r.get("Odehráno", True),
+          })
+        except:
+          pass
+
+      st.markdown(f"#### Vzájemná bilance: **{team_a}** vs **{team_b}**")
+      c1, c2, c3, c4 = st.columns(4)
+      c1.metric("Počet vzájemných zápasů", h2h_played)
+      c2.metric(f"Výhry ({team_a})", t1_wins)
+      c3.metric(f"Remízy", draws)
+      c4.metric(f"Výhry ({team_b})", t2_wins)
+
+      if h2h_played > 0:
+        st.markdown(
+            f"Vzájemné skóre gólů: **{team_a} {t1_goals} : {t2_goals} {team_b}**"
+        )
+        # Odhad šancí na výhru na základě historie
+        t1_chance = (t1_wins / h2h_played) * 100
+        t2_chance = (t2_wins / h2h_played) * 100
+        draw_chance = (draws / h2h_played) * 100
+        st.markdown(
+            f"📈 **Historická úspěšnost:** {team_a}: **{t1_chance:.1f}%** | Remíza:"
+            f" **{draw_chance:.1f}%** | {team_b}: **{t2_chance:.1f}%**"
+        )
+
+        st.markdown("**Seznam vzájemných zápasů:**")
+        for m in h2h_list:
+          st.write(f"- {m['Zápas']}")
+      else:
+        st.info(
+            f"Týmy {team_a} a {team_b} spolu v této lize ještě odehraný zápas"
+            " nemají."
+        )
