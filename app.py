@@ -235,7 +235,7 @@ if st.sidebar.button("🔄 Resetovat vše do výchozího stavu"):
 
 st.header(f"🏆 {league_name}")
 
-# Hlavní záložky (přidána záložka Statistiky)
+# Hlavní záložky
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
     "📊 Aktuální tabulka",
     "📅 Zápasy",
@@ -248,85 +248,93 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([
 with tab1:
   st.subheader("Tabulka ligy")
   matches_df = current_league["matches"]
+  teams_list = current_league["teams"]
   table_data = {}
 
-  for team in current_league["teams"]:
-    table_data[team] = {
-        "Zápasy": 0,
-        "Výhry": 0,
-        "Remízy": 0,
-        "Prohry": 0,
-        "Vstřelené": 0,
-        "Obdržené": 0,
-        "Body": 0,
-    }
+  if not teams_list:
+    st.info(
+        "V této lize zatím nejsou žádné týmy. Přejděte do záložky '🛡️ Správa"
+        " týmů' a přidejte je."
+    )
+  else:
+    for team in teams_list:
+      table_data[team] = {
+          "Zápasy": 0,
+          "Výhry": 0,
+          "Remízy": 0,
+          "Prohry": 0,
+          "Vstřelené": 0,
+          "Obdržené": 0,
+          "Body": 0,
+      }
 
-  if not matches_df.empty:
-    for _, row in matches_df.iterrows():
-      if row.get("Odehráno", True):
-        home = row["Domácí"]
-        away = row["Hosté"]
-        try:
-          hs = int(row["Skóre Domácí"])
-          as_ = int(row["Skóre Hosté"])
-        except (ValueError, TypeError):
-          continue
+    if not matches_df.empty:
+      for _, row in matches_df.iterrows():
+        if row.get("Odehráno", True):
+          home = row["Domácí"]
+          away = row["Hosté"]
+          try:
+            hs = int(row["Skóre Domácí"])
+            as_ = int(row["Skóre Hosté"])
+          except (ValueError, TypeError):
+            continue
 
-        for team in [home, away]:
-          if team not in table_data:
-            table_data[team] = {
-                "Zápasy": 0,
-                "Výhry": 0,
-                "Remízy": 0,
-                "Prohry": 0,
-                "Vstřelené": 0,
-                "Obdržené": 0,
-                "Body": 0,
-            }
+          for team in [home, away]:
+            if team not in table_data:
+              table_data[team] = {
+                  "Zápasy": 0,
+                  "Výhry": 0,
+                  "Remízy": 0,
+                  "Prohry": 0,
+                  "Vstřelené": 0,
+                  "Obdržené": 0,
+                  "Body": 0,
+              }
 
-        table_data[home]["Zápasy"] += 1
-        table_data[away]["Zápasy"] += 1
-        table_data[home]["Vstřelené"] += hs
-        table_data[home]["Obdržené"] += as_
-        table_data[away]["Vstřelené"] += as_
-        table_data[away]["Obdržené"] += hs
+          table_data[home]["Zápasy"] += 1
+          table_data[away]["Zápasy"] += 1
+          table_data[home]["Vstřelené"] += hs
+          table_data[home]["Obdržené"] += as_
+          table_data[away]["Vstřelené"] += as_
+          table_data[away]["Obdržené"] += hs
 
-        if hs > as_:
-          table_data[home]["Výhry"] += 1
-          table_data[home]["Body"] += 3
-          table_data[away]["Prohry"] += 1
-        elif hs < as_:
-          table_data[away]["Výhry"] += 1
-          table_data[away]["Body"] += 3
-          table_data[home]["Prohry"] += 1
-        else:
-          table_data[home]["Remízy"] += 1
-          table_data[home]["Body"] += 1
-          table_data[away]["Remízy"] += 1
-          table_data[away]["Body"] += 1
+          if hs > as_:
+            table_data[home]["Výhry"] += 1
+            table_data[home]["Body"] += 3
+            table_data[away]["Prohry"] += 1
+          elif hs < as_:
+            table_data[away]["Výhry"] += 1
+            table_data[away]["Body"] += 3
+            table_data[home]["Prohry"] += 1
+          else:
+            table_data[home]["Remízy"] += 1
+            table_data[home]["Body"] += 1
+            table_data[away]["Remízy"] += 1
+            table_data[away]["Body"] += 1
 
-  standings_list = []
-  for team, stats in table_data.items():
-    gd = stats["Vstřelené"] - stats["Obdržené"]
-    standings_list.append({
-        "Tým": team,
-        "Z": stats["Zápasy"],
-        "V": stats["Výhry"],
-        "R": stats["Remízy"],
-        "P": stats["Prohry"],
-        "Skóre": f"{stats['Vstřelené']}:{stats['Obdržené']}",
-        "GD": gd,
-        "Body": stats["Body"],
-        "Vstřelené": stats["Vstřelené"],
-    })
+    standings_list = []
+    for team, stats in table_data.items():
+      gd = stats["Vstřelené"] - stats["Obdržené"]
+      standings_list.append({
+          "Tým": team,
+          "Z": stats["Zápasy"],
+          "V": stats["Výhry"],
+          "R": stats["Remízy"],
+          "P": stats["Prohry"],
+          "Skóre": f"{stats['Vstřelené']}:{stats['Obdržené']}",
+          "GD": gd,
+          "Body": stats["Body"],
+          "Vstřelené": stats["Vstřelené"],
+      })
 
-  standings_df = pd.DataFrame(standings_list).sort_values(
-      by=["Body", "GD", "Vstřelené"], ascending=False
-  )
-  standings_df = standings_df.drop(columns=["Vstřelené"])
-  standings_df.reset_index(drop=True, inplace=True)
-  standings_df.index += 1
-  st.dataframe(standings_df, use_container_width=True)
+    if standings_list:
+      standings_df = pd.DataFrame(standings_list).sort_values(
+          by=["Body", "GD", "Vstřelené"], ascending=False
+      )
+      standings_df = standings_df.drop(columns=["Vstřelené"])
+      standings_df.reset_index(drop=True, inplace=True)
+      standings_df.index += 1
+      st.dataframe(standings_df, use_container_width=True)
 
 # 2. ZÁPASY
 with tab2:
@@ -466,7 +474,7 @@ with tab4:
     else:
       st.info("V lize nejsou žádné týmy.")
 
-# 5. STATISTIKY (Nová záložka)
+# 5. STATISTIKY
 with tab5:
   st.subheader("📈 Pokročilé statistiky týmů")
   teams_list = current_league["teams"]
@@ -477,7 +485,6 @@ with tab5:
   elif matches_df.empty:
     st.info("Zatím nejsou k dispozici žádné zápasy pro výpočet statistik.")
   else:
-    # Sekce A: Detailní statistiky konkrétního týmu
     st.markdown("### 📊 Detailní statistiky týmu")
     selected_team = st.selectbox("Vyberte tým pro zobrazení statistik", teams_list)
 
@@ -490,7 +497,6 @@ with tab5:
         & (matches_df.get("Odehráno", True))
     ]
 
-    # Výpočty pro domácí
     h_played = len(home_matches)
     h_wins, h_draws, h_losses, h_gf, h_ga = 0, 0, 0, 0, 0
     for _, r in home_matches.iterrows():
@@ -508,7 +514,6 @@ with tab5:
       except:
         pass
 
-    # Výpočty pro venkovní
     a_played = len(away_matches)
     a_wins, a_draws, a_losses, a_gf, a_ga = 0, 0, 0, 0, 0
     for _, r in away_matches.iterrows():
@@ -563,7 +568,6 @@ with tab5:
 
     st.divider()
 
-    # Sekce B: Vzájemná bilance a šance proti soupeři (Head-to-Head)
     st.markdown("### ⚔️ Vzájemný zápas & Odhad šancí (Head-to-Head)")
     col_t1, col_t2 = st.columns(2)
     with col_t1:
@@ -575,7 +579,6 @@ with tab5:
     if team_a == team_b:
       st.warning("Vyberte dva různé týmy pro porovnání.")
     else:
-      # Najdeme vzájemné zápasy
       h2h_matches = matches_df[
           ((matches_df["Domácí"] == team_a) & (matches_df["Hosté"] == team_b))
           | ((matches_df["Domácí"] == team_b) & (matches_df["Hosté"] == team_a))
@@ -633,7 +636,6 @@ with tab5:
         st.markdown(
             f"Vzájemné skóre gólů: **{team_a} {t1_goals} : {t2_goals} {team_b}**"
         )
-        # Odhad šancí na výhru na základě historie
         t1_chance = (t1_wins / h2h_played) * 100
         t2_chance = (t2_wins / h2h_played) * 100
         draw_chance = (draws / h2h_played) * 100
