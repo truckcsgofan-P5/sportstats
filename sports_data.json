@@ -163,5 +163,10 @@
                 "Góly": 8
             }
         ]
+    },
+    "Ligue 1 (Francie)": {
+        "teams": [],
+        "matches": [],
+        "scorers": []
     }
 }
