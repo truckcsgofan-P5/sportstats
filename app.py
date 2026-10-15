@@ -392,12 +392,12 @@ with tab2:
         home_team = st.selectbox("Domácí", teams_list, index=0)
         home_score = st.number_input("Góly dom.", min_value=0, value=0, step=1)
       with col2:
-        is_played = st.checkbox("Odehráno", value=True)
-        submitted = st.form_submit_button("➕ Přidat")
-      with col3:
         default_away_idx = 1 if len(teams_list) > 1 else 0
         away_team = st.selectbox("Hosté", teams_list, index=default_away_idx)
         away_score = st.number_input("Góly hosté", min_value=0, value=0, step=1)
+      with col3:
+        is_played = st.checkbox("Odehráno", value=True)
+        submitted = st.form_submit_button("➕ Přidat")
 
       if submitted:
         if home_team == away_team:
