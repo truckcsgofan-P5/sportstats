@@ -266,26 +266,6 @@ league_name = st.sidebar.selectbox(
 )
 current_league = st.session_state.leagues[league_name]
 
-if st.sidebar.button("🔄 Resetovat data"):
-  if HAS_GITHUB:
-    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
-    headers = {
-        "Authorization": f"token {GITHUB_TOKEN}",
-        "Accept": "application/vnd.github+json",
-    }
-    get_resp = requests.get(url, headers=headers)
-    if get_resp.status_code == 200:
-      sha = get_resp.json().get("sha")
-      requests.delete(
-          url,
-          headers=headers,
-          json={"message": "Reset dat", "sha": sha},
-      )
-  elif os.path.exists(FILE_PATH):
-    os.remove(FILE_PATH)
-  del st.session_state.leagues
-  st.rerun()
-
 st.header(f"🏆 {league_name}")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
