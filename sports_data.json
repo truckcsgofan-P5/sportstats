@@ -64,6 +64,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Manchester City",
+                "Hosté": "Bournemouth",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
