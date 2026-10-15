@@ -71,6 +71,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brighton",
+                "Hosté": "Aston Villa",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
