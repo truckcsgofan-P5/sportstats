@@ -421,6 +421,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Crystal Palace",
+                "Hosté": "Nottingham",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
