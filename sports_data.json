@@ -288,6 +288,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 5,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Manchester United",
+                "Hosté": "Manchester City",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
