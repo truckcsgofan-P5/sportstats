@@ -111,8 +111,8 @@
                 "Domácí": "Coventry",
                 "Hosté": "Hull",
                 "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Hosté": 1,
+                "Odehráno": true
             },
             {
                 "Domácí": "Bournemouth",
