@@ -281,6 +281,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Coventry",
+                "Hosté": "Brighton",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 5,
+                "Odehráno": true
             }
         ],
         "scorers": [
