@@ -330,6 +330,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brighton",
+                "Hosté": "Arsenal",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
