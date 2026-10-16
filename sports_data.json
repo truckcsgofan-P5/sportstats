@@ -160,8 +160,8 @@
                 "Domácí": "Aston Villa",
                 "Hosté": "Arsenal",
                 "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
