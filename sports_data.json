@@ -176,6 +176,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Nottingham",
+                "Hosté": "Tottenham",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
