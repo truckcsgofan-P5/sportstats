@@ -351,6 +351,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Leeds",
+                "Hosté": "Crystal Palace",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
