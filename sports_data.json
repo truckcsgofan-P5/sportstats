@@ -302,6 +302,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brentford",
+                "Hosté": "Chelsea",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
