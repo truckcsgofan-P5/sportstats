@@ -225,6 +225,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Arsenal",
+                "Hosté": "Chelsea",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
