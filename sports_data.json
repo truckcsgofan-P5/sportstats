@@ -169,6 +169,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Newcastle",
+                "Hosté": "Bournemouth",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
