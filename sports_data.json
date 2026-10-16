@@ -309,6 +309,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Tottenham",
+                "Hosté": "Aston Villa",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
