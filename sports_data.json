@@ -470,6 +470,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": false
+            },
+            {
+                "Domácí": "Newcastle",
+                "Hosté": "Aston Villa",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": [
