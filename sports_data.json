@@ -393,6 +393,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Chelsea",
+                "Hosté": "Bournemouth",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
