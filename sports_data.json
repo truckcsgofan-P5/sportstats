@@ -400,6 +400,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Aston Villa",
+                "Hosté": "Brentford",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
