@@ -253,6 +253,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Bournemouth",
+                "Hosté": "Brentford",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
