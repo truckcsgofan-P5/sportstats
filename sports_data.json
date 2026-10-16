@@ -414,6 +414,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Hull",
+                "Hosté": "Everton",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
