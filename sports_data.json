@@ -316,6 +316,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Newcastle",
+                "Hosté": "Hull",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
