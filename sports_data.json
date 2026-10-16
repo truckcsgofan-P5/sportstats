@@ -267,6 +267,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Tottenham",
+                "Hosté": "Everton",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
