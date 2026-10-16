@@ -260,6 +260,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Aston Villa",
+                "Hosté": "Nottingham",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
