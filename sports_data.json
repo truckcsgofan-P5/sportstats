@@ -344,6 +344,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Manchester City",
+                "Hosté": "Sunderland",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
