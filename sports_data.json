@@ -428,6 +428,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Liverpool",
+                "Hosté": "Manchester City",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
