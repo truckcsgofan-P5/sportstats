@@ -145,9 +145,9 @@
             {
                 "Domácí": "Chelsea",
                 "Hosté": "Brighton",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             },
             {
                 "Domácí": "Manchester United",
