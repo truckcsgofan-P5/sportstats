@@ -190,6 +190,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Fulham",
+                "Hosté": "Crystal Palace",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
