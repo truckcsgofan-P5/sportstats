@@ -367,21 +367,30 @@ with tab2:
   if len(teams_list) >= 2:
     with st.form("add_match_form"):
       st.markdown("**Nový zápas:**")
-      col1, col2, col3 = st.columns([3, 2, 3])
+      teams_dropdown = ["-- Vyberte tým --"] + teams_list
+
+      col1, col2 = st.columns(2)
       with col1:
-        home_team = st.selectbox("Domácí", teams_list, index=0)
+        home_team = st.selectbox("Domácí tým", teams_dropdown, index=0)
         home_score = st.number_input("Góly dom.", min_value=0, value=0, step=1)
       with col2:
-        default_away_idx = 1 if len(teams_list) > 1 else 0
-        away_team = st.selectbox("Hosté", teams_list, index=default_away_idx)
+        away_team = st.selectbox("Hostující tým", teams_dropdown, index=0)
         away_score = st.number_input("Góly hosté", min_value=0, value=0, step=1)
-      with col3:
+
+      st.divider()
+      col_sub1, col_sub2 = st.columns([1, 1])
+      with col_sub1:
         is_played = st.checkbox("Odehráno", value=True)
-        submitted = st.form_submit_button("➕ Přidat")
+      with col_sub2:
+        submitted = st.form_submit_button(
+            "➕ Přidat zápas", use_container_width=True
+        )
 
       if submitted:
-        if home_team == away_team:
-          st.error("Týmy musí být jiné!")
+        if home_team == "-- Vyberte tým --" or away_team == "-- Vyberte tým --":
+          st.error("Musíte vybrat domácí i hostující tým!")
+        elif home_team == away_team:
+          st.error("Domácí a hostující tým nemůže být stejný!")
         else:
           new_row = pd.DataFrame([{
               "Domácí": home_team,
@@ -423,7 +432,6 @@ with tab2:
           cols[1].caption(f"Remíza: **{p_draw:.1f}%**")
           cols[2].caption(f"Hosté: **{p_away:.1f}%**")
 
-          # Formulář pro rychlé vyplnění skóre u nadcházejícího zápasu
           with st.form(key=f"finish_match_{idx}"):
             fc1, fc2, fc3 = st.columns([2, 2, 3])
             with fc1:
@@ -451,7 +459,9 @@ with tab2:
               current_league["matches"].loc[idx, "Skóre Hosté"] = int(s_away)
               current_league["matches"].loc[idx, "Odehráno"] = True
               save_data()
-              st.success(f"Zápas {h_team} vs {a_team} byl zaznamenán jako odehraný!")
+              st.success(
+                  f"Zápas {h_team} vs {a_team} byl zaznamenán jako odehraný!"
+              )
               st.rerun()
     else:
       st.info("Žádné nadcházející zápasy.")
@@ -467,6 +477,7 @@ with tab2:
   if not current_league["matches"].equals(edited_matches):
     current_league["matches"] = edited_matches
     save_data()
+
 
 with tab3:
   st.subheader("⚽ Střelci")
