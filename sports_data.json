@@ -1098,6 +1098,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Espanyol",
+                "Hosté": "Elche",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
