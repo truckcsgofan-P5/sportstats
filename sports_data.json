@@ -692,6 +692,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Sevilla",
+                "Hosté": "Vallecano",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
