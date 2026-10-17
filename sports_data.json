@@ -1252,6 +1252,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": false
+            },
+            {
+                "Domácí": "Betis",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": [
