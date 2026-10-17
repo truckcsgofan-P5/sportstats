@@ -1372,6 +1372,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Nice",
+                "Hosté": "Lorient",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
