@@ -748,6 +748,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Valencia",
+                "Hosté": "Celta Vigo",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
