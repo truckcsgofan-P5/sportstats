@@ -1077,6 +1077,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Barcelona",
+                "Hosté": "Racing Santander",
+                "Skóre Domácí": 7,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
