@@ -818,6 +818,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Valencia",
+                "Hosté": "Betis",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
