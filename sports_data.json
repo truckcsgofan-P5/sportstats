@@ -762,6 +762,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Atletico Madrid",
+                "Hosté": "Villarreal",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
