@@ -1154,6 +1154,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "A Coruňa",
+                "Hosté": "Betis",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
