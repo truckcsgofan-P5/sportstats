@@ -937,6 +937,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 5,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Málaga",
+                "Hosté": "Levante",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
