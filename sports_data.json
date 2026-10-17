@@ -1210,6 +1210,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Betis",
+                "Hosté": "Osasuna",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
