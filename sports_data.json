@@ -1175,6 +1175,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Alavés",
+                "Hosté": "Atletico Madrid",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
