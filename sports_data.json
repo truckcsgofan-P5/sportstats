@@ -685,7 +685,15 @@
             "Valencia",
             "Málaga"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Alavés",
+                "Hosté": "Getafe",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
+            }
+        ],
         "scorers": [
             {
                 "Hráč": "Kylian Mbappé",
