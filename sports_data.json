@@ -1035,6 +1035,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Villarreal",
+                "Hosté": "Betis",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
