@@ -1126,6 +1126,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Sevilla",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
