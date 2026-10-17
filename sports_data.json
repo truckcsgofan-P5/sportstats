@@ -690,12 +690,12 @@
             {
                 "Hráč": "Kylian Mbappé",
                 "Tým": "Real Madrid",
-                "Góly": 9
+                "Góly": NaN
             },
             {
                 "Hráč": "Robert Lewandowski",
                 "Tým": "Barcelona",
-                "Góly": 8
+                "Góly": 8.0
             }
         ]
     },
