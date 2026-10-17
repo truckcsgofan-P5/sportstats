@@ -1238,6 +1238,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Espanyol",
+                "Hosté": "Atletico Madrid",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
