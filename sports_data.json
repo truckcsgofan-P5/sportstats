@@ -867,6 +867,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "A Coruňa",
+                "Hosté": "Valencia",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
