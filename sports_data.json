@@ -1344,7 +1344,15 @@
             "Le Havre",
             "Lens"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Marseille",
+                "Hosté": "Štrasburg",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
+            }
+        ],
         "scorers": []
     },
     "Bundesliga (Německo)": {
