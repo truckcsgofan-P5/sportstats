@@ -797,6 +797,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Barcelona",
+                "Hosté": "Ath. Bilbao",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
