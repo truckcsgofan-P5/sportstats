@@ -1014,6 +1014,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Levante",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": [
