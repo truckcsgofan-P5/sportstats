@@ -825,6 +825,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Racing Santander",
+                "Hosté": "Elche",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
