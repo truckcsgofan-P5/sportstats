@@ -1084,6 +1084,13 @@
                 "Skóre Domácí": 7,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Betis",
+                "Hosté": "Getafe",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
