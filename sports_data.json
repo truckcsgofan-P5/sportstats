@@ -860,6 +860,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Real Madrid",
+                "Hosté": "Málaga",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
