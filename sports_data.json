@@ -776,6 +776,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Elche",
+                "Hosté": "Barcelona",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 5,
+                "Odehráno": true
             }
         ],
         "scorers": [
