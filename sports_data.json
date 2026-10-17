@@ -1091,6 +1091,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Málaga",
+                "Hosté": "Villarreal",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
