@@ -1351,6 +1351,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lens",
+                "Hosté": "Auxerre",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
