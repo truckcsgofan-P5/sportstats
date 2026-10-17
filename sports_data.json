@@ -923,6 +923,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Villarreal",
+                "Hosté": "A Coruňa",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": [
