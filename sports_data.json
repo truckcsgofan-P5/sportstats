@@ -790,6 +790,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Málaga",
+                "Hosté": "A Coruňa",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
