@@ -909,6 +909,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Ath. Bilbao",
+                "Hosté": "Atletico Madrid",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
