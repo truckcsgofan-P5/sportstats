@@ -874,6 +874,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Celta Vigo",
+                "Hosté": "Ath. Bilbao",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
