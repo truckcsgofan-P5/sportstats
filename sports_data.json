@@ -1379,6 +1379,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Le Mans",
+                "Hosté": "Brest",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
