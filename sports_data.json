@@ -1365,6 +1365,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Toulouse",
+                "Hosté": "Lyon",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
