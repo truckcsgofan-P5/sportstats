@@ -475,8 +475,8 @@
                 "Domácí": "Newcastle",
                 "Hosté": "Aston Villa",
                 "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Hosté": 1,
+                "Odehráno": true
             },
             {
                 "Domácí": "Bournemouth",
