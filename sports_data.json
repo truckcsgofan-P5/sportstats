@@ -1070,6 +1070,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "A Coruňa",
+                "Hosté": "Sevilla",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
