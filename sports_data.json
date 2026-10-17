@@ -1217,6 +1217,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Racing Santander",
+                "Hosté": "Valencia",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
