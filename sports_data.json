@@ -1000,6 +1000,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Real Madrid",
+                "Hosté": "Vallecano",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
