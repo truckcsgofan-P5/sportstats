@@ -944,6 +944,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Alavés",
+                "Hosté": "Osasuna",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": [
