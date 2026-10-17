@@ -993,6 +993,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Ath. Bilbao",
+                "Hosté": "Elche",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
