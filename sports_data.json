@@ -979,6 +979,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Racing Santander",
+                "Hosté": "Alavés",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
