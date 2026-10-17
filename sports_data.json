@@ -1049,6 +1049,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Alavés",
+                "Hosté": "Valencia",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": [
