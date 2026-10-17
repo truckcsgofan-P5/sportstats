@@ -1119,6 +1119,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Celta Vigo",
+                "Hosté": "Racing Santander",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": [
