@@ -2425,6 +2425,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Venezia",
+                "Hosté": "Fiorentina",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
