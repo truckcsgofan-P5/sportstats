@@ -2243,6 +2243,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Venezia",
+                "Hosté": "Lecce",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
