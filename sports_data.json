@@ -2278,6 +2278,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "AS Řím",
+                "Hosté": "Fiorentina",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
