@@ -2474,6 +2474,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Turín FC",
+                "Hosté": "AS Řím",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
