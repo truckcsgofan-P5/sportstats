@@ -2083,6 +2083,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Mohuč",
+                "Hosté": "Leverkusen",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
