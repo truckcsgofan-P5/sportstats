@@ -2600,6 +2600,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lazio",
+                "Hosté": "Monza",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
