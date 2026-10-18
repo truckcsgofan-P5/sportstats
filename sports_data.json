@@ -1708,6 +1708,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Rennes",
+                "Hosté": "Auxerre",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
