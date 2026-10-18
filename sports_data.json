@@ -2041,6 +2041,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Leverkusen",
+                "Hosté": "RB Lipsko",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
