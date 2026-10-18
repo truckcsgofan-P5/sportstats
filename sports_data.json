@@ -2069,6 +2069,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Union Berlín",
+                "Hosté": "Elversberg",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
