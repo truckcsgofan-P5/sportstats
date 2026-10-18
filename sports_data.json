@@ -2495,6 +2495,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Monza",
+                "Hosté": "Sassuolo",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
