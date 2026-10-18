@@ -1908,6 +1908,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brémy",
+                "Hosté": "RB Lipsko",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
