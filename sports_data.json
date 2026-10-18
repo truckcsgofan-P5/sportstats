@@ -1722,6 +1722,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Le Mans",
+                "Hosté": "Toulouse",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
