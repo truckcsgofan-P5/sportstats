@@ -2320,6 +2320,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Neapol",
+                "Hosté": "Como",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
