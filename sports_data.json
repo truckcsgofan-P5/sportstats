@@ -2090,6 +2090,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 4,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Hoffenheim",
+                "Hosté": "Hamburg",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
