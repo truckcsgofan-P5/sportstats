@@ -2222,6 +2222,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Inter",
+                "Hosté": "Monza",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
