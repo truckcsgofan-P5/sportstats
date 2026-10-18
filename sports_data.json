@@ -1414,6 +1414,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Štrasburg",
+                "Hosté": "Lens",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
