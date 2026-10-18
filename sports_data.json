@@ -1936,6 +1936,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 4,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Union Berlín",
+                "Hosté": "Schalke",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
