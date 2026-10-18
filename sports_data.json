@@ -1519,6 +1519,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Marseille",
+                "Hosté": "Paris FC",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
