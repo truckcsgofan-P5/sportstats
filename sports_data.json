@@ -1992,6 +1992,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Elversberg",
+                "Hosté": "Bayern",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
