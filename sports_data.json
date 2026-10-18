@@ -2271,6 +2271,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Bologna",
+                "Hosté": "Lazio",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
