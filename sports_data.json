@@ -1589,6 +1589,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Monako",
+                "Hosté": "Lens",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
