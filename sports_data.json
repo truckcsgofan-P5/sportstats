@@ -1484,6 +1484,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "PSG",
+                "Hosté": "Monako",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
