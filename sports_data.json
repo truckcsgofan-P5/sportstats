@@ -2355,6 +2355,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "FC Janov",
+                "Hosté": "Como",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
