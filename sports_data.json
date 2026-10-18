@@ -1790,7 +1790,9 @@
         "scorers": []
     },
     "Bundesliga (Německo)": {
-        "teams": [],
+        "teams": [
+            "Bayern"
+        ],
         "matches": [],
         "scorers": []
     },
