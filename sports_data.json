@@ -488,9 +488,9 @@
             {
                 "Domácí": "Brighton",
                 "Hosté": "Crystal Palace",
-                "Skóre Domácí": 0,
+                "Skóre Domácí": 5,
                 "Skóre Hosté": 0,
-                "Odehráno": false
+                "Odehráno": true
             },
             {
                 "Domácí": "Leeds",
