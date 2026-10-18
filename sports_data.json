@@ -1810,7 +1810,15 @@
             "Hoffenheim",
             "Mönchengladbach"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Bayern",
+                "Hosté": "Stuttgart",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 1,
+                "Odehráno": true
+            }
+        ],
         "scorers": []
     },
     "Serie A (Itálie)": {
