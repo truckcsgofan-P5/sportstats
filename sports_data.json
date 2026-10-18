@@ -1610,6 +1610,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lyon",
+                "Hosté": "Rennes",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
