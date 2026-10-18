@@ -2132,6 +2132,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Union Berlín",
+                "Hosté": "Dortmund",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
