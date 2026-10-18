@@ -1561,6 +1561,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Auxerre",
+                "Hosté": "Nice",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
