@@ -1922,6 +1922,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Hamburg",
+                "Hosté": "Mohuč",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 5,
+                "Odehráno": true
             }
         ],
         "scorers": []
