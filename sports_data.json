@@ -2544,6 +2544,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Frosinone",
+                "Hosté": "Como",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
