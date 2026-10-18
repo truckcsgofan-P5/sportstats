@@ -2125,6 +2125,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Frankfurt",
+                "Hosté": "Kolín n. R.",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
