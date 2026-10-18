@@ -2034,6 +2034,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Stuttgart",
+                "Hosté": "Dortmund",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
