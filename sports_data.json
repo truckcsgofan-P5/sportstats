@@ -1901,6 +1901,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Hoffenheim",
+                "Hosté": "Dortmund",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
