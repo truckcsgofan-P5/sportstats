@@ -2027,6 +2027,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brémy",
+                "Hosté": "Augsburg",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
