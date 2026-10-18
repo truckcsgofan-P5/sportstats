@@ -2292,6 +2292,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Sassuolo",
+                "Hosté": "Turín FC",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
