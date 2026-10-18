@@ -1526,6 +1526,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Rennes",
+                "Hosté": "Marseille",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
