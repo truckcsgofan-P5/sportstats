@@ -1929,6 +1929,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 5,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Frankfurt",
+                "Hosté": "Augsburg",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
