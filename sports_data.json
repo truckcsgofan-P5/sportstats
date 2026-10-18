@@ -1638,6 +1638,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Nice",
+                "Hosté": "Lille",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
