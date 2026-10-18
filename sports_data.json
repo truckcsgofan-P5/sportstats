@@ -2153,6 +2153,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Elversberg",
+                "Hosté": "Augsburg",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
