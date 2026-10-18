@@ -1687,6 +1687,20 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lorient",
+                "Hosté": "Paris FC",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
+            },
+            {
+                "Domácí": "Brest",
+                "Hosté": "Angers",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
