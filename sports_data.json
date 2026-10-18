@@ -2160,6 +2160,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Brémy",
+                "Hosté": "Paderborn",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
