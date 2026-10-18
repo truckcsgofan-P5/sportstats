@@ -2020,6 +2020,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Frankfurt",
+                "Hosté": "Freiburg",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
