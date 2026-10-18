@@ -1894,6 +1894,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 4,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Leverkusen",
+                "Hosté": "Union Berlín",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
