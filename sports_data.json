@@ -2579,6 +2579,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Neapol",
+                "Hosté": "Frosinone",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
