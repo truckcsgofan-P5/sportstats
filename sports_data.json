@@ -2635,6 +2635,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Frosinone",
+                "Hosté": "Sassuolo",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
