@@ -1971,6 +1971,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Augsburg",
+                "Hosté": "Leverkusen",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
