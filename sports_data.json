@@ -1985,6 +1985,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "RB Lipsko",
+                "Hosté": "Hamburg",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
