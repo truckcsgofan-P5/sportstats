@@ -2193,7 +2193,9 @@
         "scorers": []
     },
     "Serie A (Itálie)": {
-        "teams": [],
+        "teams": [
+            "Inter"
+        ],
         "matches": [],
         "scorers": []
     }
