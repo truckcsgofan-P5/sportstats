@@ -2362,6 +2362,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 4,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Fiorentina",
+                "Hosté": "Turín FC",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
