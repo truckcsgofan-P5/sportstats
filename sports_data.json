@@ -1743,6 +1743,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lille",
+                "Hosté": "Brest",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
