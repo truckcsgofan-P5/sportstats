@@ -2663,6 +2663,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Udinese",
+                "Hosté": "Lecce",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
