@@ -2306,6 +2306,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Fiorentina",
+                "Hosté": "Frosinone",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
