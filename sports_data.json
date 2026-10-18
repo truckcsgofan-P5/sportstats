@@ -1887,6 +1887,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Mönchengladbach",
+                "Hosté": "Elversberg",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
