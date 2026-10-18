@@ -1533,6 +1533,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Štrasburg",
+                "Hosté": "Monako",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
