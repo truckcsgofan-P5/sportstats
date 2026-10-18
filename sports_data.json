@@ -2076,6 +2076,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Paderborn",
+                "Hosté": "Stuttgart",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
