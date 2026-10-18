@@ -2167,6 +2167,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Bayern",
+                "Hosté": "RB Lipsko",
+                "Skóre Domácí": 6,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
