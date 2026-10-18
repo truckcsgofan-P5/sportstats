@@ -2006,6 +2006,13 @@
                 "Skóre Domácí": 7,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Mönchengladbach",
+                "Hosté": "Mohuč",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
