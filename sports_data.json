@@ -2048,6 +2048,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Schalke",
+                "Hosté": "Elversberg",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
