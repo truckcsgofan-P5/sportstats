@@ -2341,6 +2341,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Lecce",
+                "Hosté": "AS Řím",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             }
         ],
         "scorers": []
