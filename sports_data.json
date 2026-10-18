@@ -2488,6 +2488,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Inter",
+                "Hosté": "Udinese",
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
