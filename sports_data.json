@@ -2185,9 +2185,9 @@
             {
                 "Domácí": "Mönchengladbach",
                 "Hosté": "Hoffenheim",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
