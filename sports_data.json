@@ -1791,7 +1791,8 @@
     },
     "Bundesliga (Německo)": {
         "teams": [
-            "Bayern"
+            "Bayern",
+            "Dortmund"
         ],
         "matches": [],
         "scorers": []
