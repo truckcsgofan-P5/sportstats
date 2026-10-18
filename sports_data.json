@@ -1964,6 +1964,13 @@
                 "Skóre Domácí": 5,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Dortmund",
+                "Hosté": "Paderborn",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
