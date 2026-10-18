@@ -2097,6 +2097,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Augsburg",
+                "Hosté": "Bayern",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             }
         ],
         "scorers": []
