@@ -1442,6 +1442,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Auxerre",
+                "Hosté": "Angers",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
