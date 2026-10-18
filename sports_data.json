@@ -2285,6 +2285,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "AC Milán",
+                "Hosté": "Venezia",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
