@@ -1824,6 +1824,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "RB Lipsko",
+                "Hosté": "Mönchengladbach",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
