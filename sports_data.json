@@ -2215,7 +2215,15 @@
             "FC Janov",
             "Venezia"
         ],
-        "matches": [],
+        "matches": [
+            {
+                "Domácí": "Udinese",
+                "Hosté": "Como",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
+            }
+        ],
         "scorers": []
     }
 }
