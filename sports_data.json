@@ -1866,6 +1866,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Augsburg",
+                "Hosté": "Schalke",
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
