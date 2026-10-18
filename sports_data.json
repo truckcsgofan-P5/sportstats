@@ -1873,6 +1873,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Stuttgart",
+                "Hosté": "Kolín n. R.",
+                "Skóre Domácí": 4,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
