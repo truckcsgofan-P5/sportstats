@@ -2104,6 +2104,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "RB Lipsko",
+                "Hosté": "Frankfurt",
+                "Skóre Domácí": 6,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
