@@ -2460,6 +2460,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Neapol",
+                "Hosté": "Bologna",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
