@@ -2383,6 +2383,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Parma",
+                "Hosté": "Monza",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
