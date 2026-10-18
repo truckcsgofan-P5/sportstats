@@ -1617,6 +1617,13 @@
                 "Skóre Domácí": 4,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Le Mans",
+                "Hosté": "Lorient",
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
