@@ -1736,6 +1736,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Troyes",
+                "Hosté": "Lens",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
