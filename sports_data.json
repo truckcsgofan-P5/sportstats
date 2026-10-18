@@ -1999,6 +1999,13 @@
                 "Skóre Domácí": 1,
                 "Skóre Hosté": 2,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Bayern",
+                "Hosté": "Union Berlín",
+                "Skóre Domácí": 7,
+                "Skóre Hosté": 0,
+                "Odehráno": true
             }
         ],
         "scorers": []
