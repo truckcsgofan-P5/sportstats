@@ -2607,6 +2607,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 1,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Sassuolo",
+                "Hosté": "AC Milán",
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             }
         ],
         "scorers": []
