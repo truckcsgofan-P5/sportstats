@@ -2971,6 +2971,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Turín FC",
+                "Hosté": "Monza",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
