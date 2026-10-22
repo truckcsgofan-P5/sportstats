@@ -2419,6 +2419,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": false
+            },
+            {
+                "Domácí": "Paderborn",
+                "Hosté": "Hamburg",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
