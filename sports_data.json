@@ -1390,8 +1390,8 @@
                 "Domácí": "Vallecano",
                 "Hosté": "Elche",
                 "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Hosté": 3,
+                "Odehráno": true
             },
             {
                 "Domácí": "Racing Santander",
