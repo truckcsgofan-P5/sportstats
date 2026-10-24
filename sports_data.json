@@ -2423,9 +2423,9 @@
             {
                 "Domácí": "Paderborn",
                 "Hosté": "Hamburg",
-                "Skóre Domácí": 0,
+                "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
-                "Odehráno": false
+                "Odehráno": true
             },
             {
                 "Domácí": "RB Lipsko",
