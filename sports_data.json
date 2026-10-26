@@ -2451,9 +2451,9 @@
             {
                 "Domácí": "Freiburg",
                 "Hosté": "Bayern",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 3,
+                "Odehráno": true
             }
         ],
         "scorers": []
