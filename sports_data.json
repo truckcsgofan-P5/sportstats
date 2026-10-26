@@ -1431,9 +1431,9 @@
             {
                 "Domácí": "Real Sociedad",
                 "Hosté": "Levante",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             },
             {
                 "Domácí": "Barcelona",
