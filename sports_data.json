@@ -3041,6 +3041,13 @@
                 "Skóre Domácí": 3,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Sassuolo",
+                "Hosté": "Lazio",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
