@@ -3118,6 +3118,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": false
+            },
+            {
+                "Domácí": "Udinese",
+                "Hosté": "AS Řím",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
