@@ -3598,9 +3598,9 @@
             {
                 "Domácí": "AC Milán",
                 "Hosté": "Bologna",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             },
             {
                 "Domácí": "Parma",
