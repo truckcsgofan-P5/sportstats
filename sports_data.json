@@ -2268,6 +2268,13 @@
                 "Skóre Domácí": 2,
                 "Skóre Hosté": 0,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Le Havre",
+                "Hosté": "PSG",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
