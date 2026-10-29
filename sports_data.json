@@ -3626,9 +3626,9 @@
             {
                 "Domácí": "Monza",
                 "Hosté": "Neapol",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 1,
+                "Skóre Hosté": 4,
+                "Odehráno": true
             },
             {
                 "Domácí": "Frosinone",
