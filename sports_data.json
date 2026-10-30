@@ -2279,9 +2279,9 @@
             {
                 "Domácí": "Nice",
                 "Hosté": "Rennes",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             },
             {
                 "Domácí": "Lille",
