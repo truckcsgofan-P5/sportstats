@@ -3633,9 +3633,9 @@
             {
                 "Domácí": "Frosinone",
                 "Hosté": "Lecce",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             },
             {
                 "Domácí": "Fiorentina",
