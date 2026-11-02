@@ -3654,9 +3654,9 @@
             {
                 "Domácí": "Udinese",
                 "Hosté": "AS Řím",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 2,
+                "Skóre Hosté": 5,
+                "Odehráno": true
             },
             {
                 "Domácí": "AC Milán",
