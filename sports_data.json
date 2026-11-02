@@ -2286,9 +2286,9 @@
             {
                 "Domácí": "Lille",
                 "Hosté": "Lens",
-                "Skóre Domácí": 0,
+                "Skóre Domácí": 1,
                 "Skóre Hosté": 0,
-                "Odehráno": false
+                "Odehráno": true
             },
             {
                 "Domácí": "Troyes",
