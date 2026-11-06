@@ -3979,6 +3979,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 3,
                 "Odehráno": true
+            },
+            {
+                "Domácí": "Venezia",
+                "Hosté": "Udinese",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
