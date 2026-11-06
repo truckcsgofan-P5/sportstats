@@ -3238,6 +3238,13 @@
                 "Skóre Domácí": 0,
                 "Skóre Hosté": 0,
                 "Odehráno": false
+            },
+            {
+                "Domácí": "Augsburg",
+                "Hosté": "Mohuč",
+                "Skóre Domácí": 0,
+                "Skóre Hosté": 0,
+                "Odehráno": false
             }
         ],
         "scorers": []
