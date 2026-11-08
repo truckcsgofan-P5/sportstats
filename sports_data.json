@@ -3158,9 +3158,9 @@
             {
                 "Domácí": "RB Lipsko",
                 "Hosté": "Augsburg",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 5,
+                "Skóre Hosté": 2,
+                "Odehráno": true
             },
             {
                 "Domácí": "Stuttgart",
