@@ -656,9 +656,9 @@
             {
                 "Domácí": "Everton",
                 "Hosté": "Coventry",
-                "Skóre Domácí": 0,
-                "Skóre Hosté": 0,
-                "Odehráno": false
+                "Skóre Domácí": 3,
+                "Skóre Hosté": 1,
+                "Odehráno": true
             },
             {
                 "Domácí": "Leeds",
