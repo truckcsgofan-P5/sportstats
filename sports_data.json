@@ -720,9 +720,9 @@
                 {
                     "Domácí": "Manchester United",
                     "Hosté": "Aston Villa",
-                    "Skóre Domácí": 0,
-                    "Skóre Hosté": 0,
-                    "Odehráno": false
+                    "Skóre Domácí": 4,
+                    "Skóre Hosté": 4,
+                    "Odehráno": true
                 },
                 {
                     "Domácí": "Manchester City",
