@@ -105,69 +105,73 @@ FILE_PATH = "sports_data.json"
 def get_default_data():
     return {
         "Premier League (Anglie)": {
-            "teams": [
-                "Manchester City",
-                "Arsenal",
-                "Liverpool",
-                "Chelsea",
-                "Manchester United",
-                "Tottenham",
-            ],
-            "matches": pd.DataFrame([
-                {
-                    "Domácí": "Manchester City",
-                    "Hosté": "Arsenal",
-                    "Skóre Domácí": 2,
-                    "Skóre Hosté": 2,
-                    "Odehráno": True,
-                },
-                {
-                    "Domácí": "Liverpool",
-                    "Hosté": "Chelsea",
-                    "Skóre Domácí": 3,
-                    "Skóre Hosté": 1,
-                    "Odehráno": True,
-                },
-                {
-                    "Domácí": "Manchester United",
-                    "Hosté": "Tottenham",
-                    "Skóre Domácí": 0,
-                    "Skóre Hosté": 0,
-                    "Odehráno": False,
-                },
-            ]),
-            "scorers": pd.DataFrame([
-                {"Hráč": "Erling Haaland", "Tým": "Manchester City", "Góly": 10},
-                {"Hráč": "Cole Palmer", "Tým": "Chelsea", "Góly": 7},
-            ]),
+            "2025/2026": {
+                "teams": [
+                    "Manchester City",
+                    "Arsenal",
+                    "Liverpool",
+                    "Chelsea",
+                    "Manchester United",
+                    "Tottenham",
+                ],
+                "matches": pd.DataFrame([
+                    {
+                        "Domácí": "Manchester City",
+                        "Hosté": "Arsenal",
+                        "Skóre Domácí": 2,
+                        "Skóre Hosté": 2,
+                        "Odehráno": True,
+                    },
+                    {
+                        "Domácí": "Liverpool",
+                        "Hosté": "Chelsea",
+                        "Skóre Domácí": 3,
+                        "Skóre Hosté": 1,
+                        "Odehráno": True,
+                    },
+                    {
+                        "Domácí": "Manchester United",
+                        "Hosté": "Tottenham",
+                        "Skóre Domácí": 0,
+                        "Skóre Hosté": 0,
+                        "Odehráno": False,
+                    },
+                ]),
+                "scorers": pd.DataFrame([
+                    {"Hráč": "Erling Haaland", "Tým": "Manchester City", "Góly": 10},
+                    {"Hráč": "Cole Palmer", "Tým": "Chelsea", "Góly": 7},
+                ]),
+            }
         },
         "La Liga (Španělsko)": {
-            "teams": [
-                "Real Madrid",
-                "Barcelona",
-                "Atletico Madrid",
-                "Villarreal",
-            ],
-            "matches": pd.DataFrame([
-                {
-                    "Domácí": "Real Madrid",
-                    "Hosté": "Barcelona",
-                    "Skóre Domácí": 2,
-                    "Skóre Hosté": 1,
-                    "Odehráno": True,
-                },
-                {
-                    "Domácí": "Barcelona",
-                    "Hosté": "Atletico Madrid",
-                    "Skóre Domácí": 0,
-                    "Skóre Hosté": 0,
-                    "Odehráno": False,
-                },
-            ]),
-            "scorers": pd.DataFrame([
-                {"Hráč": "Kylian Mbappé", "Tým": "Real Madrid", "Góly": 9},
-                {"Hráč": "Robert Lewandowski", "Tým": "Barcelona", "Góly": 8},
-            ]),
+            "2025/2026": {
+                "teams": [
+                    "Real Madrid",
+                    "Barcelona",
+                    "Atletico Madrid",
+                    "Villarreal",
+                ],
+                "matches": pd.DataFrame([
+                    {
+                        "Domácí": "Real Madrid",
+                        "Hosté": "Barcelona",
+                        "Skóre Domácí": 2,
+                        "Skóre Hosté": 1,
+                        "Odehráno": True,
+                    },
+                    {
+                        "Domácí": "Barcelona",
+                        "Hosté": "Atletico Madrid",
+                        "Skóre Domácí": 0,
+                        "Skóre Hosté": 0,
+                        "Odehráno": False,
+                    },
+                ]),
+                "scorers": pd.DataFrame([
+                    {"Hráč": "Kylian Mbappé", "Tým": "Real Madrid", "Góly": 9},
+                    {"Hráč": "Robert Lewandowski", "Tým": "Barcelona", "Góly": 8},
+                ]),
+            }
         },
     }
 
@@ -188,12 +192,22 @@ def load_data():
                 raw_data = json.loads(file_content_bytes.decode("utf-8"))
 
                 loaded = {}
-                for league, content in raw_data.items():
-                    loaded[league] = {
-                        "teams": content.get("teams", []),
-                        "matches": pd.DataFrame(content["matches"]),
-                        "scorers": pd.DataFrame(content["scorers"]),
-                    }
+                for league, seasons in raw_data.items():
+                    loaded[league] = {}
+                    # Zpětná kompatibilita: pokud JSON ještě neměl sezóny, obalíme ho
+                    if "teams" in seasons and "matches" in seasons:
+                        loaded[league]["2025/2026"] = {
+                            "teams": seasons.get("teams", []),
+                            "matches": pd.DataFrame(seasons["matches"]),
+                            "scorers": pd.DataFrame(seasons["scorers"]),
+                        }
+                    else:
+                        for season, content in seasons.items():
+                            loaded[league][season] = {
+                                "teams": content.get("teams", []),
+                                "matches": pd.DataFrame(content["matches"]),
+                                "scorers": pd.DataFrame(content["scorers"]),
+                            }
                 return loaded
         except Exception:
             pass
@@ -203,12 +217,21 @@ def load_data():
                 with open(FILE_PATH, "r", encoding="utf-8") as f:
                     raw_data = json.load(f)
                 loaded = {}
-                for league, content in raw_data.items():
-                    loaded[league] = {
-                        "teams": content.get("teams", []),
-                        "matches": pd.DataFrame(content["matches"]),
-                        "scorers": pd.DataFrame(content["scorers"]),
-                    }
+                for league, seasons in raw_data.items():
+                    loaded[league] = {}
+                    if "teams" in seasons and "matches" in seasons:
+                        loaded[league]["2025/2026"] = {
+                            "teams": seasons.get("teams", []),
+                            "matches": pd.DataFrame(seasons["matches"]),
+                            "scorers": pd.DataFrame(seasons["scorers"]),
+                        }
+                    else:
+                        for season, content in seasons.items():
+                            loaded[league][season] = {
+                                "teams": content.get("teams", []),
+                                "matches": pd.DataFrame(content["matches"]),
+                                "scorers": pd.DataFrame(content["scorers"]),
+                            }
                 return loaded
             except Exception:
                 pass
@@ -218,12 +241,14 @@ def load_data():
 
 def save_data():
     data_to_save = {}
-    for league, content in st.session_state.leagues.items():
-        data_to_save[league] = {
-            "teams": content["teams"],
-            "matches": content["matches"].to_dict("records"),
-            "scorers": content["scorers"].to_dict("records"),
-        }
+    for league, seasons in st.session_state.leagues.items():
+        data_to_save[league] = {}
+        for season, content in seasons.items():
+            data_to_save[league][season] = {
+                "teams": content["teams"],
+                "matches": content["matches"].to_dict("records"),
+                "scorers": content["scorers"].to_dict("records"),
+            }
 
     if HAS_GITHUB:
         url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{FILE_PATH}"
@@ -243,7 +268,7 @@ def save_data():
             sha = get_resp.json().get("sha")
 
         payload = {
-            "message": "Aktualizace sportovních dat",
+            "message": "Aktualizace sportovních dat se sezónami",
             "content": encoded_content,
         }
         if sha:
@@ -312,7 +337,7 @@ if "leagues" not in st.session_state:
     st.session_state.leagues = load_data()
 
 st.title("⚽🏒 SportStats")
-st.markdown("Správa lig, zápasů a statistik.")
+st.markdown("Správa lig, sezón, zápasů a statistik.")
 
 st.sidebar.header("⚙️ Navigace")
 
@@ -321,13 +346,53 @@ if st.sidebar.button("🔄 Načíst data ze souboru"):
     st.success("Data byla načtena!")
     st.rerun()
 
+# --- VÝBĚR / VYTVOŘENÍ LIGY A SEZÓNY V SIDEBARU ---
+league_name = st.sidebar.selectbox(
+    "Vyberte ligu", list(st.session_state.leagues.keys())
+)
+
+current_league_seasons = st.session_state.leagues[league_name]
+season_name = st.sidebar.selectbox(
+    "Vyberte sezónu", list(current_league_seasons.keys())
+)
+current_season = current_league_seasons[season_name]
+
 with st.sidebar.expander("➕ Vytvořit ligu"):
-    new_league_name = st.text_input("Název ligy")
-    if st.button("Vytvořit"):
+    new_league_name = st.text_input("Název nové ligy")
+    if st.button("Vytvořit ligu"):
         league_clean = new_league_name.strip()
         if league_clean:
             if league_clean not in st.session_state.leagues:
                 st.session_state.leagues[league_clean] = {
+                    "2025/2026": {
+                        "teams": [],
+                        "matches": pd.DataFrame(
+                            columns=[
+                                "Domácí",
+                                "Hosté",
+                                "Skóre Domácí",
+                                "Skóre Hosté",
+                                "Odehráno",
+                            ]
+                        ),
+                        "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
+                    }
+                }
+                save_data()
+                st.success(f"Liga '{league_clean}' vytvořena!")
+                st.rerun()
+            else:
+                st.error("Liga již existuje!")
+        else:
+            st.error("Zadejte název!")
+
+with st.sidebar.expander("➕ Vytvořit sezónu"):
+    new_season_name = st.text_input("Název sezóny (např. 2026/2027)")
+    if st.button("Vytvořit sezónu"):
+        season_clean = new_season_name.strip()
+        if season_clean:
+            if season_clean not in current_league_seasons:
+                current_league_seasons[season_clean] = {
                     "teams": [],
                     "matches": pd.DataFrame(
                         columns=[
@@ -341,19 +406,14 @@ with st.sidebar.expander("➕ Vytvořit ligu"):
                     "scorers": pd.DataFrame(columns=["Hráč", "Tým", "Góly"]),
                 }
                 save_data()
-                st.success(f"Liga '{league_clean}' vytvořena!")
+                st.success(f"Sezóna '{season_clean}' vytvořena pro {league_name}!")
                 st.rerun()
             else:
-                st.error("Liga již existuje!")
+                st.error("Sezóna v této lize již existuje!")
         else:
-            st.error("Zadejte název!")
+            st.error("Zadejte název sezóny!")
 
-league_name = st.sidebar.selectbox(
-    "Vyberte ligu", list(st.session_state.leagues.keys())
-)
-current_league = st.session_state.leagues[league_name]
-
-st.header(f"🏆 {league_name}")
+st.header(f"🏆 {league_name} — {season_name}")
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
     ["📊 Tabulka", "📅 Zápasy", "⚽ Střelci", "🛡️ Týmy", "📈 Statistiky"]
@@ -361,12 +421,12 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(
 
 with tab1:
     st.subheader("Tabulka ligy")
-    matches_df = current_league["matches"]
-    teams_list = current_league["teams"]
+    matches_df = current_season["matches"]
+    teams_list = current_season["teams"]
     table_data = {}
 
     if not teams_list:
-        st.info("V lize nejsou žádné týmy. Přidejte je v záložce '🛡️ Týmy'.")
+        st.info("V této sezóně nejsou žádné týmy. Přidejte je v záložce '🛡️ Týmy'.")
     else:
         for team in teams_list:
             table_data[team] = {
@@ -449,7 +509,7 @@ with tab1:
 
 with tab2:
     st.subheader("📅 Zápasy & Predikce")
-    teams_list = current_league["teams"]
+    teams_list = current_season["teams"]
 
     if len(teams_list) >= 2:
         with st.form("add_match_form"):
@@ -486,8 +546,8 @@ with tab2:
                         "Skóre Hosté": int(away_score),
                         "Odehráno": bool(is_played),
                     }])
-                    current_league["matches"] = pd.concat(
-                        [current_league["matches"], new_row], ignore_index=True
+                    current_season["matches"] = pd.concat(
+                        [current_season["matches"], new_row], ignore_index=True
                     )
                     save_data()
                     st.success("Zápas přidán!")
@@ -498,7 +558,7 @@ with tab2:
     st.divider()
 
     st.subheader("🔮 Nadcházející zápasy & Zadání výsledku")
-    matches_df = current_league["matches"]
+    matches_df = current_season["matches"]
 
     if not matches_df.empty and "Odehráno" in matches_df.columns:
         upcoming_df = matches_df[matches_df["Odehráno"] == False]
@@ -542,9 +602,9 @@ with tab2:
                             submit_res = st.form_submit_button("✅ Uložit a odehrát")
 
                         if submit_res:
-                            current_league["matches"].loc[idx, "Skóre Domácí"] = int(s_home)
-                            current_league["matches"].loc[idx, "Skóre Hosté"] = int(s_away)
-                            current_league["matches"].loc[idx, "Odehráno"] = True
+                            current_season["matches"].loc[idx, "Skóre Domácí"] = int(s_home)
+                            current_season["matches"].loc[idx, "Skóre Hosté"] = int(s_away)
+                            current_season["matches"].loc[idx, "Odehráno"] = True
                             save_data()
                             st.success(
                                 f"Zápas {h_team} vs {a_team} byl zaznamenán jako odehraný!"
@@ -556,19 +616,19 @@ with tab2:
     st.divider()
     st.subheader("Seznam zápasů (úprava)")
     edited_matches = st.data_editor(
-        current_league["matches"],
+        current_season["matches"],
         num_rows="dynamic",
-        key=f"matches_editor_{league_name}",
+        key=f"matches_editor_{league_name}_{season_name}",
         use_container_width=True,
     )
-    if not current_league["matches"].equals(edited_matches):
-        current_league["matches"] = edited_matches
+    if not current_season["matches"].equals(edited_matches):
+        current_season["matches"] = edited_matches
         save_data()
 
 
 with tab3:
     st.subheader("⚽ Střelci")
-    teams_list = current_league["teams"]
+    teams_list = current_season["teams"]
     if teams_list:
         with st.form("add_scorer_form"):
             col1, col2, col3 = st.columns([2, 2, 1])
@@ -588,8 +648,8 @@ with tab3:
                         "Tým": player_team,
                         "Góly": int(player_goals),
                     }])
-                    current_league["scorers"] = pd.concat(
-                        [current_league["scorers"], new_scorer], ignore_index=True
+                    current_season["scorers"] = pd.concat(
+                        [current_season["scorers"], new_scorer], ignore_index=True
                     )
                     save_data()
                     st.success("Střelec přidán!")
@@ -599,13 +659,13 @@ with tab3:
 
     st.divider()
     edited_scorers = st.data_editor(
-        current_league["scorers"],
+        current_season["scorers"],
         num_rows="dynamic",
-        key=f"scorers_editor_{league_name}",
+        key=f"scorers_editor_{league_name}_{season_name}",
         use_container_width=True,
     )
-    if not current_league["scorers"].equals(edited_scorers):
-        current_league["scorers"] = edited_scorers
+    if not current_season["scorers"].equals(edited_scorers):
+        current_season["scorers"] = edited_scorers
         save_data()
 
 with tab4:
@@ -618,24 +678,24 @@ with tab4:
             if st.form_submit_button("Přidat tým"):
                 if not new_team.strip():
                     st.error("Prázdný název!")
-                elif new_team in current_league["teams"]:
-                    st.error("Tým již existuje!")
+                elif new_team in current_season["teams"]:
+                    st.error("Tým již v této sezóně existuje!")
                 else:
-                    current_league["teams"].append(new_team.strip())
+                    current_season["teams"].append(new_team.strip())
                     save_data()
                     st.success(f"'{new_team}' přidán!")
                     st.rerun()
 
     with col_list:
-        if current_league["teams"]:
+        if current_season["teams"]:
             st.dataframe(
-                pd.DataFrame({"Tým": current_league["teams"]}),
+                pd.DataFrame({"Tým": current_season["teams"]}),
                 use_container_width=True,
                 hide_index=True,
             )
-            team_to_delete = st.selectbox("Smazat tým", current_league["teams"])
+            team_to_delete = st.selectbox("Smazat tým", current_season["teams"])
             if st.button("🗑️ Smazat", type="primary"):
-                current_league["teams"].remove(team_to_delete)
+                current_season["teams"].remove(team_to_delete)
                 save_data()
                 st.success("Smazáno.")
                 st.rerun()
@@ -644,8 +704,8 @@ with tab4:
 
 with tab5:
     st.subheader("📈 Statistiky")
-    teams_list = current_league["teams"]
-    matches_df = current_league["matches"]
+    teams_list = current_season["teams"]
+    matches_df = current_season["matches"]
 
     if not teams_list or matches_df.empty:
         st.info("Pro zobrazení statistik přidejte týmy a odehrané zápasy.")
