@@ -1798,9 +1798,9 @@
                 {
                     "Domácí": "Atletico Madrid",
                     "Hosté": "Barcelona",
-                    "Skóre Domácí": 0,
-                    "Skóre Hosté": 0,
-                    "Odehráno": false
+                    "Skóre Domácí": 1,
+                    "Skóre Hosté": 2,
+                    "Odehráno": true
                 },
                 {
                     "Domácí": "Ath. Bilbao",
