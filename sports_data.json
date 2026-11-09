@@ -2523,8 +2523,8 @@
                     "Domácí": "Le Havre",
                     "Hosté": "Lorient",
                     "Skóre Domácí": 0,
-                    "Skóre Hosté": 0,
-                    "Odehráno": false
+                    "Skóre Hosté": 2,
+                    "Odehráno": true
                 },
                 {
                     "Domácí": "Le Mans",
