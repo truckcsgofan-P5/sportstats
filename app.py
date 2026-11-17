@@ -102,6 +102,26 @@ GITHUB_REPO = st.secrets.get("GITHUB_REPO", "")
 FILE_PATH = "sports_data.json"
 
 
+def ensure_matches_schema(df):
+    """Zajistí, že DataFrame se zápasy obsahuje všechny potřebné sloupce včetně 'Datum'."""
+    if df.empty:
+        return pd.DataFrame(columns=["Datum", "Domácí", "Hosté", "Skóre Domácí", "Skóre Hosté", "Odehráno"])
+    
+    if "Datum" not in df.columns:
+        df.insert(0, "Datum", datetime.today().strftime("%Y-%m-%d"))
+    
+    expected_cols = ["Datum", "Domácí", "Hosté", "Skóre Domácí", "Skóre Hosté", "Odehráno"]
+    for col in expected_cols:
+        if col not in df.columns:
+            if col in ["Skóre Domácí", "Skóre Hosté"]:
+                df[col] = 0
+            elif col == "Odehráno":
+                df[col] = True
+            else:
+                df[col] = ""
+    return df[expected_cols]
+
+
 def get_default_data():
     return {
         "Premier League (Anglie)": {
@@ -116,6 +136,7 @@ def get_default_data():
                 ],
                 "matches": pd.DataFrame([
                     {
+                        "Datum": "2026-05-10",
                         "Domácí": "Manchester City",
                         "Hosté": "Arsenal",
                         "Skóre Domácí": 2,
@@ -123,6 +144,7 @@ def get_default_data():
                         "Odehráno": True,
                     },
                     {
+                        "Datum": "2026-05-12",
                         "Domácí": "Liverpool",
                         "Hosté": "Chelsea",
                         "Skóre Domácí": 3,
@@ -130,6 +152,7 @@ def get_default_data():
                         "Odehráno": True,
                     },
                     {
+                        "Datum": "2026-06-01",
                         "Domácí": "Manchester United",
                         "Hosté": "Tottenham",
                         "Skóre Domácí": 0,
@@ -149,6 +172,7 @@ def get_default_data():
                 ],
                 "matches": pd.DataFrame([
                     {
+                        "Datum": "2026-05-11",
                         "Domácí": "Real Madrid",
                         "Hosté": "Barcelona",
                         "Skóre Domácí": 2,
@@ -156,6 +180,7 @@ def get_default_data():
                         "Odehráno": True,
                     },
                     {
+                        "Datum": "2026-06-02",
                         "Domácí": "Barcelona",
                         "Hosté": "Atletico Madrid",
                         "Skóre Domácí": 0,
@@ -189,13 +214,13 @@ def load_data():
                     if "teams" in seasons and "matches" in seasons:
                         loaded[league]["2025/2026"] = {
                             "teams": seasons.get("teams", []),
-                            "matches": pd.DataFrame(seasons["matches"]),
+                            "matches": ensure_matches_schema(pd.DataFrame(seasons["matches"])),
                         }
                     else:
                         for season, content in seasons.items():
                             loaded[league][season] = {
                                 "teams": content.get("teams", []),
-                                "matches": pd.DataFrame(content["matches"]),
+                                "matches": ensure_matches_schema(pd.DataFrame(content["matches"])),
                             }
                 return loaded
         except Exception:
@@ -211,13 +236,13 @@ def load_data():
                     if "teams" in seasons and "matches" in seasons:
                         loaded[league]["2025/2026"] = {
                             "teams": seasons.get("teams", []),
-                            "matches": pd.DataFrame(seasons["matches"]),
+                            "matches": ensure_matches_schema(pd.DataFrame(seasons["matches"])),
                         }
                     else:
                         for season, content in seasons.items():
                             loaded[league][season] = {
                                 "teams": content.get("teams", []),
-                                "matches": pd.DataFrame(content["matches"]),
+                                "matches": ensure_matches_schema(pd.DataFrame(content["matches"])),
                             }
                 return loaded
             except Exception:
@@ -233,7 +258,7 @@ def save_data():
         for season, content in seasons.items():
             data_to_save[league][season] = {
                 "teams": content["teams"],
-                "matches": content["matches"].to_dict("records"),
+                "matches": ensure_matches_schema(content["matches"]).to_dict("records"),
             }
 
     if HAS_GITHUB:
@@ -254,7 +279,7 @@ def save_data():
             sha = get_resp.json().get("sha")
 
         payload = {
-            "message": "Aktualizace sportovních dat bez střelců",
+            "message": "Aktualizace sportovních dat s datem zápasů",
             "content": encoded_content,
         }
         if sha:
@@ -353,6 +378,7 @@ with st.sidebar.expander("➕ Vytvořit ligu"):
                         "teams": [],
                         "matches": pd.DataFrame(
                             columns=[
+                                "Datum",
                                 "Domácí",
                                 "Hosté",
                                 "Skóre Domácí",
@@ -380,6 +406,7 @@ with st.sidebar.expander("➕ Vytvořit sezónu"):
                     "teams": [],
                     "matches": pd.DataFrame(
                         columns=[
+                            "Datum",
                             "Domácí",
                             "Hosté",
                             "Skóre Domácí",
@@ -499,6 +526,8 @@ with tab2:
             st.markdown("**Nový zápas:**")
             teams_dropdown = ["-- Vyberte tým --"] + teams_list
 
+            match_date = st.date_input("Datum zápasu", value=datetime.today())
+
             col1, col2 = st.columns(2)
             with col1:
                 home_team = st.selectbox("Domácí tým", teams_dropdown, index=0)
@@ -523,6 +552,7 @@ with tab2:
                     st.error("Domácí a hostující tým nemůže být stejný!")
                 else:
                     new_row = pd.DataFrame([{
+                        "Datum": match_date.strftime("%Y-%m-%d"),
                         "Domácí": home_team,
                         "Hosté": away_team,
                         "Skóre Domácí": int(home_score),
@@ -548,6 +578,7 @@ with tab2:
 
         if not upcoming_df.empty:
             for idx, row in upcoming_df.iterrows():
+                m_date = row.get("Datum", "")
                 h_team = row["Domácí"]
                 a_team = row["Hosté"]
 
@@ -556,7 +587,7 @@ with tab2:
                 )
 
                 with st.container(border=True):
-                    st.markdown(f"**🏠 {h_team}** vs **✈️ {a_team}**")
+                    st.markdown(f"📅 **{m_date}** | **🏠 {h_team}** vs **✈️ {a_team}**")
                     cols = st.columns(3)
                     cols[0].caption(f"Domácí: **{p_home:.1f}%**")
                     cols[1].caption(f"Remíza: **{p_draw:.1f}%**")
@@ -605,7 +636,7 @@ with tab2:
         use_container_width=True,
     )
     if not current_season["matches"].equals(edited_matches):
-        current_season["matches"] = edited_matches
+        current_season["matches"] = ensure_matches_schema(edited_matches)
         save_data()
 
 with tab3:
